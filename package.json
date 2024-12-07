@@ -1,7 +1,7 @@
 {
   "name": "@stronk-tech/spotify-player",
   "description": "`go-librespot` web frontend optimized for small touchscreens",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "files": [
@@ -27,7 +27,9 @@
     "rollup": "^4.28.0",
     "rollup-plugin-import-css": "^3.5.7",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "react": "^16.14.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.14.0 || ^17.0.0 || ^18.0.0"
   },
   "babel": {
     "presets": [

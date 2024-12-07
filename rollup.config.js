@@ -41,7 +41,7 @@ export default {
       ),
     }),
     // Convert CommonJS modules to ES6
-    commonjs({ 
+    commonjs({
       preferBuiltins: false,
       include: 'node_modules/**',
     }),
@@ -55,7 +55,9 @@ export default {
     }),
     image(),
     json(),
-    css(),
+    css({
+      inject: true
+    }),
     !isDevelopment && terser(),
   ],
 };
