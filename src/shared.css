@@ -1,0 +1,131 @@
+/* General styles used throughout the project */
+
+:root {
+  --red: #f7768e;
+  --orange: #ff9e64;
+  --yellow: #e0af68;
+  --weird: #cfc9c2;
+  --green: #73daca;
+  --cyan: #7dcfff;
+  --blue: #7aa2f7;
+  --magenta: #bb9af7;
+  --lightest: #c0caf5;
+  --lighter: #a9b1d6;
+  --light: #9aa5ce;
+  --grey: #565f89;
+  --dark: #414868;
+  --darker: #24283b;
+  --darkest: #1a1b26;
+
+  --body-background-color: var(--darkest);
+  --section-background: var(--darker);
+  --button-background: var(--grey);
+  --button-border: var(--dark);
+  --button-text-color: var(--lightest);
+  --button-hover-background: var(--dark);
+  --visitor-counter-background: var(--dark);
+  --text-color: var(--lightest);
+  --heading-color: var(--lightest);
+  --heading-color-alt: var(--lighter);
+  --scrollbar-track-color: var(--darker);
+  --scrollbar-thumb-color: var(--grey);
+  --scrollbar-thumb-hover-color: var(--blue);
+  --accent-color: var(--yellow);
+  --link-color: var(--cyan);
+  --link-hover-color: var(--magenta);
+
+  --subtext-color: var(--light);
+  --description-color: var(--grey);
+
+  --scroll-factor: 0.2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--body-background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+h3 {
+  font-size: 1.8rem;
+  color: var(--heading-color);
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+h4 {
+  font-size: 1.5rem;
+  color: var(--weird);
+  text-align: center;
+  margin: 20px 0;
+  transition: transform 0.2s, color 0.3s ease;
+}
+
+h4:hover {
+  transform: scale(1.1);
+  color: var(--yellow);
+}
+
+/* Scrollbar Styling */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 6px;
+  filter: brightness(0.8);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+/* Fix for uniform button styles */
+button,
+a {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+button:hover,
+a:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: var(--button-hover-background);
+}

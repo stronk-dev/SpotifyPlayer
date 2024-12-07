@@ -1,0 +1,210 @@
+.album-card-wrapper {
+  position: relative;
+  margin: 1em;
+  flex-shrink: 0;
+  border-radius: 0.4em;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: width 0.3s ease, height 0.3s ease, filter 0.3s ease, z-index 0s;
+  background: var(--gradient-border, linear-gradient(to right, #000, #333));
+}
+
+/* Snug black border around the card */
+.album-card-wrapper::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 3px solid var(--darkest);
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4), transparent);
+  box-shadow: inset 0px 4px 15px rgba(0, 0, 0, 0.8);
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Subtle gradient glow effect */
+.album-card-wrapper::before {
+  content: "";
+  position: absolute;
+  background: var(--gradient-border);
+  border-radius: inherit;
+  z-index: 1;
+  opacity: 0.6;
+  animation: pulsate-glow 4s infinite alternate ease-in-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes pulsate-glow {
+  0% {
+    filter: blur(10px);
+    top: -0.20em;
+    left: -0.20em;
+    right: -0.20em;
+    bottom: -0.2em;
+  }
+  50% {
+    filter: blur(30px);
+    top: -0.30em;
+    left: -0.30em;
+    right: -0.30em;
+    bottom: -0.3em;
+  }
+  100% {
+    filter: blur(10px);
+    top: -0.20em;
+    left: -0.20em;
+    right: -0.20em;
+    bottom: -0.2em;
+  }
+}
+
+.album-card-wrapper:hover {
+  filter: brightness(1.25);
+}
+
+.album-card-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  box-sizing: border-box;
+  z-index: 5;
+  border-radius: inherit;
+}
+
+/* .album-card-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("/paper_fibers.png");
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  background-size: cover;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 8;
+} */
+
+.album-card-container-border {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: inherit;
+  background: var(--gradient-border, linear-gradient(to right, var(--blue), var(--lighter)));
+  pointer-events: none;
+  z-index: 3;
+}
+
+.album-card-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 6;
+}
+
+.album-card-image-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) 15%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.2) 85%, rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+  z-index: 9;
+}
+
+.album-card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 7;
+  transition: all 0.3s ease;
+}
+
+.album-card-title-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(20, 20, 20, 0.8), rgba(30, 30, 30, 0.7), rgba(40, 40, 40, 0.5), rgba(50, 50, 50, 0.3));
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+  padding: 0.5em;
+  box-sizing: border-box;
+  z-index: 10;
+  transition: all 0.3s ease;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.album-card-title {
+  position: relative;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(135deg, #f5f5dc, #e6e6e6, #d4d4d4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-family: 'Cinzel', serif;
+  box-sizing: border-box;
+  z-index: 11;
+  transition: all 0.3s ease;
+  overflow: visible;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+@supports not (-webkit-background-clip: text) {
+  .album-card-title {
+    color: #d4af37;
+  }
+}
+
+.album-card-subtitle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background: linear-gradient(0deg, var(--darkest), rgba(20, 20, 30, 0.9)), url("/grunge_wall.png"); */
+  background-color: var(--darker);
+  background-blend-mode: overlay;
+  background-size: cover;
+  opacity: 0.8;
+  color: var(--lighter);
+  font-style: italic;
+  font-size: 0.6em;
+  text-align: center;
+  padding: 0.3em;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  border-top: 2px solid var(--darkest);
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  transition: all 0.3s ease;
+  font-family: 'Cinzel', serif;
+  box-sizing: border-box;
+  z-index: 10;
+}

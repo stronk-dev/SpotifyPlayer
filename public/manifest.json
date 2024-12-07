@@ -1,0 +1,14 @@
+{
+  "short_name": "Livepeer-Transcoder-Dashboard",
+  "name": "stronk.rocks/ai",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#855dfe",
+  "background_color": "#020643"
+}
