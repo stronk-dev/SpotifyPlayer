@@ -19,6 +19,7 @@ import "./MediaPlayer.css";
 const MediaPlayer = ({
   websocketUrl = process.env.REACT_APP_WS_URL || "ws://localhost:3678/events",
   apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3678",
+  hideOnDisconnect = false,
 }) => {
   const [status, setStatus] = useState(null);
   const [track, setTrack] = useState(null);
@@ -129,6 +130,10 @@ const MediaPlayer = ({
     return;
   }
 
+  if (hideOnDisconnect && !isConnected) {
+    return;
+  }
+
   return (
     <div className="spotify-card">
       <div className="info-container">
@@ -166,6 +171,7 @@ const MediaPlayer = ({
 MediaPlayer.propTypes = {
   websocketUrl: PropTypes.string,
   apiBaseUrl: PropTypes.string,
+  hideOnDisconnect: PropTypes.bool,
 };
 
 export default MediaPlayer;

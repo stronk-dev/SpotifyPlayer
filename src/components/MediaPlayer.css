@@ -32,7 +32,7 @@
 }
 
 .spotify-details {
-  display: flex;;
+  display: flex;
   flex-direction: column;
   width: 100%;
   transition: width 0.3s ease, height 0.3s ease, filter 0.3s ease, z-index 0s;
@@ -398,7 +398,6 @@
     align-items: flex-start; /* Align to the top */
     justify-content: space-between; /* Space between left and right */
     gap: 1em;
-    height: 100%;
   }
 
   .details-container {
