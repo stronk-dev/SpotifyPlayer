@@ -81,23 +81,23 @@ const AlbumCard = ({ title, subtitle, image }) => {
 
   return (
     <div
-      className={"album-card-wrapper"}
+      className={"spotify-player-album-card-wrapper"}
       style={{ '--gradient-border': rotatingGradient, opacity: loaded ? 1 : 0 }}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-      <div className="album-card-container">
-        <div className="album-card-container-border"></div>
-        <div className="album-card-image-container">
+      <div className="spotify-player-album-card-container">
+        <div className="spotify-player-album-card-container-border"></div>
+        <div className="spotify-player-album-card-image-container">
           <img
-            className="album-card-image"
+            className="spotify-player-album-card-image"
             alt={`${title} - ${subtitle}`}
             src={image}
           />
         </div>
-        <div className="album-card-title-container">
-          <div className="album-card-title">{title}</div>
+        <div className="spotify-player-album-card-title-container">
+          <div className="spotify-player-album-card-title">{title}</div>
         </div>
-        <div className="album-card-subtitle">{subtitle}</div>
+        <div className="spotify-player-album-card-subtitle">{subtitle}</div>
       </div>
     </div>
   );

@@ -56,7 +56,8 @@ export default {
     image(),
     json(),
     css({
-      inject: true
+      inject: true,
+      minify: true
     }),
     !isDevelopment && terser(),
   ],

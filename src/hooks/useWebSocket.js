@@ -52,6 +52,7 @@ const useWebSocket = (websocketUrl, onEvent) => {
 
   const connect = () => {
     if (retryCountRef.current > MAX_RETRIES) {
+      setState({ isConnected: false, error: 'Max reconnection attempts reached.' });
       console.warn("Max WebSocket reconnection attempts reached.");
       return;
     }
@@ -88,7 +89,7 @@ const useWebSocket = (websocketUrl, onEvent) => {
       console.error("WebSocket encountered an error:", error.message || error);
       setState((prev) => ({
         ...prev,
-        error: error.message || "WebSocket error",
+        error: error.message || 'WebSocket encountered an error',
       }));
     };
 
@@ -107,7 +108,7 @@ const useWebSocket = (websocketUrl, onEvent) => {
         return;
       }
 
-      setState({ isConnected: false, error: "Connection closed" });
+      setState({ isConnected: false, error: event.reason || 'Connection closed' });
       socketRef.current = null;
 
       // Handle reconnection with exponential backoff

@@ -15,36 +15,36 @@ const ControlsContainer = ({
   volume,
   maxVolume
 }) => (
-  <div className="controls-container">
-    <div className="playback-controls">
-      <button onClick={handlePreviousTrack} className="control-button">
+  <div className="spotify-player-controls-container">
+    <div className="spotify-player-playback-controls">
+      <button onClick={handlePreviousTrack} className="spotify-player-control-button">
         <FaStepBackward />
       </button>
-      <button onClick={handlePlayPause} className="control-button">
+      <button onClick={handlePlayPause} className="spotify-player-control-button">
         {isPlaying ? <FaPause /> : <FaPlay />}
       </button>
-      <button onClick={handleNextTrack} className="control-button">
+      <button onClick={handleNextTrack} className="spotify-player-control-button">
         <FaStepForward />
       </button>
 
       {shuffleContext ? (
-        <div className={`toggle-container on`} onClick={toggleShuffle}>
-          <div className="toggle-track-text">ON</div>
-          <div className="toggle-thumb">
-            <FaRandom className="toggle-thumb-icon" />
+        <div className={`spotify-player-toggle-container on`} onClick={toggleShuffle}>
+          <div className="spotify-player-toggle-track-text">ON</div>
+          <div className="spotify-player-toggle-thumb">
+            <FaRandom className="spotify-player-toggle-thumb-icon" />
           </div>
         </div>
       ) : (
-        <div className={`toggle-container off`} onClick={toggleShuffle}>
-          <div className="toggle-thumb">
-            <FaRandom className="toggle-thumb-icon" />
+        <div className={`spotify-player-toggle-container off`} onClick={toggleShuffle}>
+          <div className="spotify-player-toggle-thumb">
+            <FaRandom className="spotify-player-toggle-thumb-icon" />
           </div>
-          <div className="toggle-track-text">OFF</div>
+          <div className="spotify-player-toggle-track-text">OFF</div>
         </div>
       )}
     </div>
     {track && (
-      <div className="seek-container">
+      <div className="spotify-player-seek-container">
         <span>{Math.floor(currentPosition / 1000)}s</span>
         <input
           type="range"
@@ -52,12 +52,12 @@ const ControlsContainer = ({
           max="100"
           value={(currentPosition / track.duration) * 100}
           onChange={handleSeek}
-          className="seek-bar"
+          className="spotify-player-seek-bar"
         />
         <span>{Math.floor(track.duration / 1000)}s</span>
       </div>
     )}
-    <div className="volume-control">
+    <div className="spotify-player-volume-control">
       <span>
         <FaVolumeDown />
       </span>
@@ -67,7 +67,7 @@ const ControlsContainer = ({
         max="100"
         value={(volume / maxVolume) * 100}
         onChange={handleVolumeChange}
-        className="volume-slider"
+        className="spotify-player-volume-slider"
       />
       <span>
         <FaVolumeUp />

@@ -3,9 +3,9 @@ import { GiCompactDisc } from "react-icons/gi";
 import { FaExclamationCircle } from "react-icons/fa";
 
 const DeviceTitle = ({ isConnected, deviceName }) => (
-  <div className="device-title">
+  <div className="spotify-player-device-title">
     {isConnected ? (
-      <GiCompactDisc className="connected-icon" />
+      <GiCompactDisc className="spotify-player-connected-icon" />
     ) : (
       <FaExclamationCircle className="connected-icon disconnected" />
     )}

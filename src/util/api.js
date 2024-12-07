@@ -1,12 +1,34 @@
+
+/**
+ * Generic API call function with error handling.
+ * @param {string} url - The API endpoint to call.
+ * @param {object} options - Fetch options (method, headers, body, etc.).
+ * @param {any} defaultReturnValue - The default return value on failure (default: {}).
+ * @returns {Promise<any>} - The API response or default value.
+ */
+const callApi = async (url, options = {}, defaultReturnValue = {}) => {
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      console.error(`API call failed: ${response.status} ${response.statusText}`);
+      return defaultReturnValue;
+    }
+    return response;
+  } catch (error) {
+    console.error("Error in API call:", error);
+    return defaultReturnValue;
+  }
+};
+
 let apiBaseUrl = "";
 
 /**
  * General
  */
 export const checkAPI = async () => {
-  const response = await fetch(`${apiBaseUrl}/`);
+  const response = await callApi(`${apiBaseUrl}/`, {}, {});
   return response.json();
-};
+}
 
 /**
  * Status
@@ -15,44 +37,44 @@ export const getStatus = async (baseUrl) => {
   if (apiBaseUrl !== baseUrl) {
     apiBaseUrl = baseUrl;
   }
-  const response = await fetch(`${apiBaseUrl}/status`);
+  const response = await callApi(`${apiBaseUrl}/status`, {}, {});
   return response.json();
-};
+}
 
 /**
  * Player Controls
  */
 export const play = async (payload) =>
-  await fetch(`${apiBaseUrl}/player/play`, {
+  await callApi(`${apiBaseUrl}/player/play`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
 export const resume = async () =>
-  await fetch(`${apiBaseUrl}/player/resume`, { method: "POST" });
+  await callApi(`${apiBaseUrl}/player/resume`, { method: "POST" });
 
 export const pause = async () =>
-  await fetch(`${apiBaseUrl}/player/pause`, { method: "POST" });
+  await callApi(`${apiBaseUrl}/player/pause`, { method: "POST" });
 
 export const togglePlayPause = async () =>
-  await fetch(`${apiBaseUrl}/player/playpause`, { method: "POST" });
+  await callApi(`${apiBaseUrl}/player/playpause`, { method: "POST" });
 
 export const nextTrack = async (uri) =>
-  await fetch(`${apiBaseUrl}/player/next`, {
+  await callApi(`${apiBaseUrl}/player/next`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ uri }),
   });
 
 export const previousTrack = async () =>
-  await fetch(`${apiBaseUrl}/player/prev`, { method: "POST" });
+  await callApi(`${apiBaseUrl}/player/prev`, { method: "POST" });
 
 /**
  * Seek Controls
  */
 export const seek = async (position, relative = false) =>
-  await fetch(`${apiBaseUrl}/player/seek`, {
+  await callApi(`${apiBaseUrl}/player/seek`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ position, relative }),
@@ -62,12 +84,12 @@ export const seek = async (position, relative = false) =>
  * Volume Controls
  */
 export const getVolume = async () => {
-  const response = await fetch(`${apiBaseUrl}/player/volume`);
+  const response = await callApi(`${apiBaseUrl}/player/volume`, {}, {});
   return response.json();
-};
+}
 
 export const setVolume = async (volume, relative = false) =>
-  await fetch(`${apiBaseUrl}/player/volume`, {
+  await callApi(`${apiBaseUrl}/player/volume`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ volume, relative }),
@@ -77,21 +99,21 @@ export const setVolume = async (volume, relative = false) =>
  * Repeat and Shuffle
  */
 export const toggleRepeatContext = async (repeat_context) =>
-  await fetch(`${apiBaseUrl}/player/repeat_context`, {
+  await callApi(`${apiBaseUrl}/player/repeat_context`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repeat_context }),
   });
 
 export const toggleRepeatTrack = async (repeat_track) =>
-  await fetch(`${apiBaseUrl}/player/repeat_track`, {
+  await callApi(`${apiBaseUrl}/player/repeat_track`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repeat_track }),
   });
 
 export const toggleShuffleContext = async (shuffle_context) =>
-  await fetch(`${apiBaseUrl}/player/shuffle_context`, {
+  await callApi(`${apiBaseUrl}/player/shuffle_context`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ shuffle_context }),
@@ -101,7 +123,7 @@ export const toggleShuffleContext = async (shuffle_context) =>
  * Queue Management
  */
 export const addToQueue = async (uri) =>
-  await fetch(`${apiBaseUrl}/player/add_to_queue`, {
+  await callApi(`${apiBaseUrl}/player/add_to_queue`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ uri }),

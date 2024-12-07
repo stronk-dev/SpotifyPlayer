@@ -125,25 +125,20 @@ const MediaPlayer = ({
     return "Invalid Date"; // Return fallback for invalid formats
   };
 
-  if (!track) {
-    // TODO: handle this nicely...
-    return;
-  }
-
   if (hideOnDisconnect && !isConnected) {
     return;
   }
 
   return (
-    <div className="spotify-card">
-      <div className="info-container">
+    <div className="spotify-player-spotify-card">
+      <div className="spotify-player-info-container">
         <AlbumCard
           title={track?.album_name || "N/A"}
           subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
           image={track?.album_cover_url}
         />
-        <div className="spotify-details">
-          <div className="details-container">
+        <div className="spotify-player-spotify-details">
+          <div className="spotify-player-details-container">
             <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} />
             <TrackDetails track={track} formatReleaseDate={formatReleaseDate} />
           </div>

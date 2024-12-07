@@ -1,4 +1,4 @@
-.album-card-wrapper {
+.spotify-player-album-card-wrapper {
   position: relative;
   margin: 1em;
   flex-shrink: 1;
@@ -13,7 +13,7 @@
 }
 
 /* Snug black border around the card */
-.album-card-wrapper::after {
+.spotify-player-album-card-wrapper::after {
   content: "";
   position: absolute;
   top: -6px;
@@ -30,7 +30,7 @@
 }
 
 /* Subtle gradient glow effect */
-.album-card-wrapper::before {
+.spotify-player-album-card-wrapper::before {
   content: "";
   position: absolute;
   background: var(--gradient-border);
@@ -65,11 +65,11 @@
   }
 }
 
-.album-card-wrapper:hover {
+.spotify-player-album-card-wrapper:hover {
   filter: brightness(1.25);
 }
 
-.album-card-container {
+.spotify-player-album-card-container {
   position: relative;
   width: 100%;
   height: auto;
@@ -80,7 +80,7 @@
   border-radius: inherit;
 }
 
-.album-card-container::after {
+.spotify-player-album-card-container::after {
   content: "";
   position: absolute;
   top: 0;
@@ -96,7 +96,7 @@
   z-index: 8;
 }
 
-.album-card-container-border {
+.spotify-player-album-card-container-border {
   position: absolute;
   top: -4px;
   left: -4px;
@@ -108,7 +108,7 @@
   z-index: 3;
 }
 
-.album-card-image-container {
+.spotify-player-album-card-image-container {
   position: relative;
   width: 100%;
   height: 100%;
@@ -118,7 +118,7 @@
   z-index: 6;
 }
 
-.album-card-image-container::before {
+.spotify-player-album-card-image-container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -131,7 +131,7 @@
   z-index: 9;
 }
 
-.album-card-image {
+.spotify-player-album-card-image {
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -143,7 +143,7 @@
   transition: all 0.3s ease;
 }
 
-.album-card-title-container {
+.spotify-player-album-card-title-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -159,7 +159,7 @@
   border-top-right-radius: inherit;
 }
 
-.album-card-title {
+.spotify-player-album-card-title {
   position: relative;
   font-size: 1em;
   font-weight: bold;
@@ -178,12 +178,12 @@
 }
 
 @supports not (-webkit-background-clip: text) {
-  .album-card-title {
+  .spotify-player-album-card-title {
     color: #d4af37;
   }
 }
 
-.album-card-subtitle {
+.spotify-player-album-card-subtitle {
   position: absolute;
   bottom: 0;
   left: 0;
