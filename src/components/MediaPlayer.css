@@ -394,11 +394,14 @@
 .spotify-player-connected-icon {
   font-size: 2rem;
   color: var(--blue);
-  animation: spin 2s linear infinite; /* Smooth continuous spin */
 }
 
 .spotify-player-connected-icon.disconnected {
   color: var(--red);
+}
+
+.spotify-player-connected-icon.rotating {
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {

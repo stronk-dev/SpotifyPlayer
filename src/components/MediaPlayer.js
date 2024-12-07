@@ -139,7 +139,7 @@ const MediaPlayer = ({
         />
         <div className="spotify-player-spotify-details">
           <div className="spotify-player-details-container">
-            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} />
+            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} isPlaying={isPlaying} />
             <TrackDetails track={track} formatReleaseDate={formatReleaseDate} />
           </div>
           <ControlsContainer
