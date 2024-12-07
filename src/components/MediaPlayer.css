@@ -17,7 +17,6 @@
 }
 
 .spotify-card:hover {
-  transform: scale(1.05);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   z-index: 3;
   position: relative;
@@ -213,7 +212,7 @@
   cursor: pointer;
   position: relative;
   top: -3px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .seek-bar::-webkit-slider-thumb:hover {
@@ -304,7 +303,7 @@
   position: relative;
   top: -3px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
@@ -319,7 +318,7 @@
   justify-content: space-between;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  width: 120px;
+  width: 90px;
   height: 36px;
   border-radius: 0.4em;
   background: var(--darker); /* Default background for OFF state */
@@ -388,5 +387,30 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Wide Screens Layout (side-by-side for >900px) */
+@media (min-width: 900px) {
+  .spotify-details {
+    display: flex;
+    flex-direction: row; /* Arrange components in a row */
+    align-items: flex-start; /* Align to the top */
+    justify-content: space-between; /* Space between left and right */
+    gap: 1em;
+    height: 100%;
+  }
+
+  .details-container {
+    flex: 2; /* Take more space for DeviceTitle and TrackDetails */
+    display: flex;
+    flex-direction: column; /* Keep DeviceTitle and TrackDetails stacked */
+    gap: 0.5em;
+  }
+
+  .controls-container {
+    flex: 1; /* Take less space for controls */
+    max-width: 300px; /* Optional: Limit width for the controls */
+    margin-top: 0;
   }
 }

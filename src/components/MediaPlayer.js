@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useWebSocket from "../hooks/useWebSocket";
+import AlbumCard from "./AlbumCard";
+import DeviceTitle from "./DeviceTitle";
+import TrackDetails from "./TrackDetails";
+import ControlsContainer from "./ControlsContainer";
 import {
   getStatus,
   resume,
@@ -10,19 +14,7 @@ import {
   setVolume,
   toggleShuffleContext,
 } from "../util/api";
-import {
-  FaPlay,
-  FaPause,
-  FaStepForward,
-  FaStepBackward,
-  FaVolumeDown,
-  FaVolumeUp,
-  FaRandom,
-  FaExclamationCircle,
-} from "react-icons/fa";
-import { GiCompactDisc } from "react-icons/gi";
 import "./MediaPlayer.css";
-import AlbumCard from "./AlbumCard";
 
 const MediaPlayer = ({
   websocketUrl = process.env.REACT_APP_WS_URL || "ws://localhost:3678/events",
@@ -92,11 +84,7 @@ const MediaPlayer = ({
   }, [isPlaying, track]);
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      pause();
-    } else {
-      resume();
-    }
+    isPlaying ? pause() : resume();
     setIsPlaying(!isPlaying);
   };
 
@@ -150,97 +138,24 @@ const MediaPlayer = ({
           image={track?.album_cover_url}
         />
         <div className="spotify-details">
-          <div className="device-title">
-            {isConnected ? (
-              <GiCompactDisc className="connected-icon" />
-            ) : (
-              <FaExclamationCircle className="connected-icon disconnected" />
-            )}
-            <h4>{status.device_name}</h4>
+          <div className="details-container">
+            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} />
+            <TrackDetails track={track} formatReleaseDate={formatReleaseDate} />
           </div>
-          <div className="track-details">
-            <table className="track-details-table">
-              <tbody>
-                <tr className="track-details-row">
-                  <td className="track-details-cell key-cell">Title</td>
-                  <td className="track-details-cell value-cell">{track.name}</td>
-                </tr>
-                <tr className="track-details-row">
-                  <td className="track-details-cell key-cell">Artist</td>
-                  <td className="track-details-cell value-cell">{track.artist_names.join(", ")}</td>
-                </tr>
-                <tr className="track-details-row">
-                  <td className="track-details-cell key-cell">Released</td>
-                  <td className="track-details-cell value-cell">{formatReleaseDate(track.release_date)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="controls-container">
-            <div className="playback-controls">
-              <button onClick={previousTrack} className="control-button">
-                <FaStepBackward />
-              </button>
-              <button onClick={handlePlayPause} className="control-button">
-                {isPlaying ? <FaPause /> : <FaPlay />}
-              </button>
-              <button onClick={handleNextTrack} className="control-button">
-                <FaStepForward />
-              </button>
-
-              {/* Shuffle Toggle */}
-              {shuffleContext ? (
-                <div className={`toggle-container on`} onClick={toggleShuffle}>
-                  <div className="toggle-track-text">ON</div>
-                  <div className="toggle-thumb">
-                    <FaRandom className="toggle-thumb-icon" />
-                  </div>
-                </div>
-              ) : (
-                <div className={`toggle-container off`} onClick={toggleShuffle}>
-                  <div className="toggle-thumb">
-                    <FaRandom className="toggle-thumb-icon" />
-                  </div>
-                  <div className="toggle-track-text">OFF</div>
-                </div>
-              )}
-            </div>
-
-            {/* Seek Bar */}
-            {track && (
-              <div className="seek-container">
-                <span>{Math.floor(currentPosition / 1000)}s</span>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={(currentPosition / track.duration) * 100}
-                  onChange={handleSeek}
-                  className="seek-bar"
-                />
-                <span>{Math.floor(track.duration / 1000)}s</span>
-              </div>
-            )}
-
-            {/* Volume Control */}
-            <div className="volume-control">
-              <span>
-                <FaVolumeDown />
-              </span>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={(volume / maxVolume) * 100}
-                onChange={handleVolumeChange}
-                className="volume-slider"
-              />
-              <span>
-                <FaVolumeUp />
-              </span>
-            </div>
-          </div>
+          <ControlsContainer
+            isPlaying={isPlaying}
+            handlePlayPause={handlePlayPause}
+            handleNextTrack={handleNextTrack}
+            handlePreviousTrack={previousTrack}
+            shuffleContext={shuffleContext}
+            toggleShuffle={toggleShuffle}
+            track={track}
+            currentPosition={currentPosition}
+            handleSeek={handleSeek}
+            volume={volume}
+            maxVolume={maxVolume}
+            handleVolumeChange={handleVolumeChange}
+          />
         </div>
       </div>
       {error && <span className="error">Error: {error}</span>}
