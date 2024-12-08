@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const RECONNECT_DELAY_BASE = 1000; // Initial reconnect delay: 1 second
+const RECONNECT_DELAY_BASE = 200; // Initial reconnect delay: 1 second
 const MAX_RECONNECT_DELAY = 30000; // Maximum reconnect delay: 30 seconds
 const MAX_RETRIES = 10; // Maximum reconnection attempts
 
@@ -49,6 +49,7 @@ const useWebSocket = (websocketUrl, onEvent) => {
   const retryCountRef = useRef(0); // Use a ref to track retry count
   const socketRef = useRef(null); // Single WebSocket instance
   const retryTimeoutRef = useRef(null); // Reconnection timeout reference
+  const disconnectTimeoutRef = useRef(null); // Timeout for delayed disconnection
 
   const connect = () => {
     if (retryCountRef.current > MAX_RETRIES) {
@@ -74,6 +75,12 @@ const useWebSocket = (websocketUrl, onEvent) => {
       console.log("WebSocket connected successfully.");
       setState({ isConnected: true, error: null });
       retryCountRef.current = 0; // Reset retries on successful connection
+
+      // Clear any pending disconnect timeout
+      if (disconnectTimeoutRef.current) {
+        clearTimeout(disconnectTimeoutRef.current);
+        disconnectTimeoutRef.current = null;
+      }
     };
 
     socket.onmessage = (message) => {
@@ -108,7 +115,15 @@ const useWebSocket = (websocketUrl, onEvent) => {
         return;
       }
 
-      setState({ isConnected: false, error: event.reason || 'Connection closed' });
+      // Introduce delayed disconnection
+      disconnectTimeoutRef.current = setTimeout(() => {
+        setState((prev) => ({ ...prev, isConnected: false }));
+      }, 4000); // Delay for 4 seconds
+
+      setState((prev) => ({
+        ...prev,
+        error: event.reason || 'Connection closed',
+      }));
       socketRef.current = null;
 
       // Handle reconnection with exponential backoff
@@ -130,6 +145,7 @@ const useWebSocket = (websocketUrl, onEvent) => {
 
     return () => {
       if (retryTimeoutRef.current) clearTimeout(retryTimeoutRef.current);
+      if (disconnectTimeoutRef.current) clearTimeout(disconnectTimeoutRef.current);
       if (socketRef.current) {
         console.log("Closing WebSocket due to component unmount.");
         socketRef.current.close(1000, "Component unmounted");
