@@ -1,0 +1,22 @@
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: var(--darkest);
+  overflow-x: hidden;
+  overflow-y: auto;
+  user-select: none;
+  scrollbar-color: var(--dark) var(--darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+body #root {
+  height: unset;
+}
