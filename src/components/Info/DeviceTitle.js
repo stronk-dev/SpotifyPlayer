@@ -11,6 +11,7 @@ import {
 } from "react-icons/gi";
 import { FaTabletAlt, FaCar, FaMusic, FaQuestionCircle, FaChromecast, FaExclamationCircle } from "react-icons/fa";
 import { MdWatch } from "react-icons/md";
+import './DeviceTitle.css';
 
 const deviceIcons = {
   computer: GiLaptop,

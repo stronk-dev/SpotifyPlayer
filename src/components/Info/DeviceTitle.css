@@ -1,0 +1,61 @@
+/* Title + Icon container */
+
+.spotify-player-device-title {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  text-align: center;
+  background-color: var(--dark);
+  width: 100%;
+  transition: width 0.3s ease, height 0.3s ease, filter 0.3s ease, z-index 0s;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  align-items: center;
+  padding: 0.5em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  border-radius: 0.2em;
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+/* Title device name styling */
+
+.spotify-player-device-title h4 {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--weird);
+  text-align: center;
+  margin: 20px 0;
+  transition: transform 0.2s, color 0.3s ease;
+}
+
+.spotify-player-device-title:hover h4 {
+  transform: scale(1.1);
+  color: var(--yellow);
+}
+
+/* Title Icon styling */
+
+.spotify-player-connected-icon {
+  font-size: 2rem;
+  color: var(--blue);
+}
+
+.spotify-player-connected-icon.spotify-player-disconnected {
+  color: var(--red);
+}
+
+.spotify-player-connected-icon.spotify-player-rotating {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

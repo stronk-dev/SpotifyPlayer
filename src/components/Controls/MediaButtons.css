@@ -1,0 +1,120 @@
+
+/* Media button wrapper */
+
+.spotify-player-playback-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--button-background);
+  border-radius: 0.4em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  max-width: 500px;
+}
+
+/* Media button styling */
+
+.spotify-player-control-button {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  transition: all 0.3s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  font-size: 1.5rem;
+  background: var(--button-background);
+  border-radius: 0.4em;
+  cursor: pointer;
+}
+
+.spotify-player-control-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: var(--button-hover-background);
+}
+
+.spotify-player-control-button:disabled {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: var(--dark);
+}
+
+.spotify-player-control-button:disabled:hover {
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Toggle button styling */
+
+.spotify-player-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  width: 90px;
+  height: 36px;
+  border-radius: 0.4em;
+  background: var(--darker);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.4em;
+}
+
+.spotify-player-toggle-container:hover {
+  transform: scale(1.1);
+}
+
+.spotify-player-toggle-container.on {
+  background: var(--blue);
+}
+
+.spotify-player-toggle-container.off {
+  background: var(--darkest);
+}
+
+.spotify-player-toggle-container.disabled {
+  background: var(--dark);
+}
+
+.spotify-player-toggle-container.disabled:hover {
+  transform: none;
+  cursor: not-allowed;
+}
+
+.spotify-player-toggle-track-text {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--text-color);
+  padding: 0 8px;
+  text-align: center;
+  user-select: none;
+}
+
+.spotify-player-toggle-thumb {
+  top: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 0.4em;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  flex: 1;
+}
+
+.spotify-player-toggle-thumb.disabled {
+  background: var(--grey);
+}
+
+.spotify-player-toggle-thumb-icon {
+  font-size: 1rem;
+  color: var(--darker);
+}

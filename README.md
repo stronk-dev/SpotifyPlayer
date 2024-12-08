@@ -1,7 +1,7 @@
 # react-librespot-controller
 [![NPM](https://img.shields.io/npm/v/@stronk-tech/react-librespot-controller.svg)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
 
-> [`go-librespot`](https://github.com/devgianlu/go-librespot) web frontend for small touchscreens
+> [`go-librespot`](https://github.com/devgianlu/go-librespot) squeezebox-alike web frontend for small touchscreens
 
 Can be deployed standalone or imported as a NPM module.
 

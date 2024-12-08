@@ -1,0 +1,83 @@
+
+/* Seekbar wrapper */
+
+.spotify-player-seek-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 0.4em;
+  max-width: 500px;
+}
+
+.spotify-player-seek-container span {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/* Seekbar styling */
+
+.spotify-player-seek-bar {
+  -webkit-appearance: none;
+  flex: 4;
+  height: 8px;
+  border-radius: 0.4em;
+  transition: background 0.3s ease;
+}
+
+.spotify-player-seek-bar::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.4em;
+  background: var(--lighter);
+  height: 18px;
+}
+
+.spotify-player-seek-bar::-webkit-slider-runnable-track:hover {
+  background: var(--lightest);
+  cursor: pointer;
+}
+
+.spotify-player-seek-bar:disabled::-webkit-slider-runnable-track:hover {
+  transform: none;
+  cursor: not-allowed;
+  background: var(--lighter);
+}
+
+.spotify-player-seek-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 24px;
+  border-radius: 0.4em;
+  background: var(--grey);
+  cursor: pointer;
+  position: relative;
+  top: -3px;
+  transition: all 0.2s ease;
+}
+
+.spotify-player-seek-bar:disabled::-webkit-slider-thumb {
+  background: var(--dark);
+}
+
+.spotify-player-seek-bar::-webkit-slider-thumb:hover {
+  background: var(--blue);
+  transform: scale(1.2);
+}
+
+.spotify-player-seek-bar:disabled::-webkit-slider-thumb:hover {
+  transform: none;
+  cursor: not-allowed;
+  background: var(--dark);
+}
+
+/* Portrait seekbar styling */
+@media (max-width: 500px){
+  .spotify-player-seek-container {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './AlbumCard.css';
 import PlaceholderAlbum from "./PlaceHolderAlbum";
+import './AlbumCard.css';
 
 const AlbumCard = ({ title, subtitle, image, isStopped }) => {
   const [loaded, setLoaded] = useState(false);
@@ -98,9 +98,9 @@ const AlbumCard = ({ title, subtitle, image, isStopped }) => {
                 src={image}
               />
             </div>
-            <div className="spotify-player-album-card-title-container">
+            {/* <div className="spotify-player-album-card-title-container">
               <div className="spotify-player-album-card-title">{title}</div>
-            </div>
+            </div> */}
             <div className="spotify-player-album-card-subtitle">{subtitle}</div>
           </div>
         )

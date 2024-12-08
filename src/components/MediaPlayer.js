@@ -1,10 +1,13 @@
+// Main container - connects with the API and general layout of subcomponents
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useWebSocket from "../hooks/useWebSocket";
-import AlbumCard from "./AlbumCard";
-import DeviceTitle from "./DeviceTitle";
-import TrackDetails from "./TrackDetails";
-import ControlsContainer from "./ControlsContainer";
+import AlbumCard from "./Album/AlbumCard";
+import DeviceTitle from "./Info/DeviceTitle";
+import TrackDetails from "./Info/TrackDetails";
+import SeekControls from "./Controls/SeekControls";
+import MediaButtons from "./Controls/MediaButtons";
+import VolumeControls from "./Controls/VolumeControls";
 import {
   getStatus,
   resume,
@@ -73,7 +76,7 @@ const MediaPlayer = ({
   useEffect(() => {
     const fetchStatus = async () => {
       const data = await getStatus(apiBaseUrl);
-      const isStopped =  data.stopped || !data.play_origin.length || data.track == null;
+      const isStopped = data.stopped || !data.play_origin.length || data.track == null;
       setStatus(data);
       setTrack(data.track);
       setLocalVolume(data.volume);
@@ -159,21 +162,29 @@ const MediaPlayer = ({
             <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} deviceType={status?.device_type} isPlaying={isPlaying} isStopped={isStopped} />
             <TrackDetails track={track} formatReleaseDate={formatReleaseDate} isStopped={isStopped} />
           </div>
-          <ControlsContainer
-            isPlaying={isPlaying}
-            handlePlayPause={handlePlayPause}
-            handleNextTrack={handleNextTrack}
-            handlePreviousTrack={previousTrack}
-            shuffleContext={shuffleContext}
-            toggleShuffle={toggleShuffle}
-            duration={track?.duration || 100}
-            currentPosition={currentPosition || 100}
-            handleSeek={handleSeek}
-            volume={volume}
-            maxVolume={maxVolume}
-            handleVolumeChange={handleVolumeChange}
-            isStopped={isStopped}
-          />
+          <div className="spotify-player-controls-container">
+            <MediaButtons
+              isPlaying={isPlaying}
+              handlePlayPause={handlePlayPause}
+              handleNextTrack={handleNextTrack}
+              handlePreviousTrack={previousTrack}
+              shuffleContext={shuffleContext}
+              toggleShuffle={toggleShuffle}
+              isStopped={isStopped}
+            />
+            <SeekControls
+              duration={track?.duration || 100}
+              currentPosition={currentPosition || 100}
+              handleSeek={handleSeek}
+              isStopped={isStopped}
+            />
+            <VolumeControls
+              volume={volume}
+              maxVolume={maxVolume}
+              handleVolumeChange={handleVolumeChange}
+              isStopped={isStopped}
+            />
+          </div>
         </div>
       </div>
       {error && <span className="error">Error: {error}</span>}

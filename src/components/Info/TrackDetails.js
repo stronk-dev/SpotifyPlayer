@@ -1,4 +1,5 @@
 import React from "react";
+import './TrackDetails.css';
 
 const TrackDetails = ({ track, formatReleaseDate, isStopped }) => {
   if (isStopped) {
@@ -27,6 +28,10 @@ const TrackDetails = ({ track, formatReleaseDate, isStopped }) => {
           <tr className="spotify-player-track-details-row">
             <td className="spotify-player-track-details-cell spotify-player-key-cell">Title</td>
             <td className="spotify-player-track-details-cell spotify-player-value-cell">{track?.name || "N/A"}</td>
+          </tr>
+          <tr className="spotify-player-track-details-row">
+            <td className="spotify-player-track-details-cell spotify-player-key-cell">Album</td>
+            <td className="spotify-player-track-details-cell spotify-player-value-cell">{track?.album_name || "N/A"}</td>
           </tr>
           <tr className="spotify-player-track-details-row">
             <td className="spotify-player-track-details-cell spotify-player-key-cell">Artist</td>
