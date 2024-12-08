@@ -42,6 +42,11 @@ REACT_APP_WS_URL=ws://apollo:3678/events
 ```
 
 Run `npm run test` for local debugging.
+Run `npm run static` to generate the build folder.
+
+TODO: build instructions
+TODO: nginx instructions
+TODO: OS instructions (auto-login, open browser, etc)
 
 ## Module
 
@@ -56,16 +61,16 @@ import MediaPlayer from "@stronk-tech/spotify-player";
 <MediaPlayer websocketUrl={"ws://apollo:3678/events"} apiBaseUrl={"http://apollo:3678"} hideOnDisconnect={true} />
 ```
 
-If you set `hideOnDisconnect` to true, the entire component will hide itself when there is no connection to the API endpoint.
+If you set `hideOnDisconnect` to true, the entire component will hide itself when there is no connection to the API endpoint. Otherwise it will display an error state (an retry the connection of course).
 
 # Screen shots
 The player arranges itself based on the screen dimensions, with three possible layouts:
 
 ### Default layout
-![Default](screenshot_default.png)
+[Default](screenshot_default.png)
 
-### Wide screen
+### Widescreen
 ![Wide](screenshot_wide.png)
 
-### Portrait screen
+### Portrait
 ![Portrait](screenshot_portrait.png)

@@ -7,13 +7,18 @@
   gap: 1rem;
   width: 100%;
   margin: 0.4em;
+  margin-left: 0;
   max-width: 500px;
 }
 
+.spotify-player-widescreen-layout .spotify-player-seek-container {
+  flex: 1;
+}
+
 .spotify-player-seek-container span {
-  width: 32px;
+  width: 48px;
   height: 32px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   justify-content: center;
   align-items: center;
   display: flex;

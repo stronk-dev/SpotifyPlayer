@@ -10,6 +10,7 @@
   padding-left: 0.4em;
   padding-right: 0.4em;
   max-width: 500px;
+  flex: 1;
 }
 
 /* Media button styling */
@@ -28,6 +29,7 @@
   width: 36px;
   font-size: 1.5rem;
   background: var(--button-background);
+  color: var(--darkest);
   border-radius: 0.4em;
   cursor: pointer;
 }
@@ -91,7 +93,7 @@
   flex: 1;
   font-size: 0.85rem;
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--darkest);
   padding: 0 8px;
   text-align: center;
   user-select: none;
@@ -103,6 +105,7 @@
   height: 28px;
   border-radius: 0.4em;
   background: var(--light);
+  color: var(--darkest);
   display: flex;
   align-items: center;
   justify-content: center;

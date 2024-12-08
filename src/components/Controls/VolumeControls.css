@@ -3,18 +3,21 @@
 
 .spotify-player-volume-control {
   display: flex;
-  flex: 3;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  margin: 0.4em;
+  justify-content: space-between;
+  background: var(--button-background);
+  border-radius: 0.4em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
   max-width: 500px;
+  flex: 1;
 }
 
 .spotify-player-volume-control span{
   width: 32px;
   height: 32px;
   font-size: 1.5rem;
+  color: var(--darkest);
   justify-content: center;
   align-items: center;
   display: flex;
@@ -60,7 +63,7 @@
   width: 18px;
   height: 24px;
   border-radius: 0.4em;
-  background: var(--grey);
+  background: var(--dark);
   position: relative;
   top: -3px;
   cursor: pointer;
@@ -72,7 +75,7 @@
 }
 
 .spotify-player-volume-slider::-webkit-slider-thumb:hover {
-  background: var(--green);
+  background: var(--blue);
   transform: scale(1.2);
 }
 
