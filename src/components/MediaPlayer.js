@@ -147,35 +147,37 @@ const MediaPlayer = ({
     return "Invalid Date"; // Return fallback for invalid formats
   };
 
+  const updateLayout = () => {
+    if (playerRef.current) {
+      const layoutClass =
+        width > 900
+          ? "spotify-player-widescreen-layout"
+          : width < 500
+            ? "spotify-player-portrait-layout"
+            : "spotify-player-default-layout";
+
+      // Remove previous layout classes
+      playerRef.current.classList.remove(
+        "spotify-player-widescreen-layout",
+        "spotify-player-portrait-layout",
+        "spotify-player-default-layout"
+      );
+
+      // Add the current layout class
+      playerRef.current.classList.add(layoutClass);
+    }
+  };
+
   useEffect(() => {
-    const updateLayout = () => {
-      if (playerRef.current) {
-        const layoutClass =
-          width > 900
-            ? "spotify-player-widescreen-layout"
-            : width < 500
-              ? "spotify-player-portrait-layout"
-              : "spotify-player-default-layout";
+    // Trigger a resize event to force re-evaluation
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 5);
+  }, []);
 
-        // Remove previous layout classes
-        playerRef.current.classList.remove(
-          "spotify-player-widescreen-layout",
-          "spotify-player-portrait-layout",
-          "spotify-player-default-layout"
-        );
-
-        // Add the current layout class
-        playerRef.current.classList.add(layoutClass);
-      }
-    };
-
-    // Initial update
+  useEffect(() => {
     updateLayout();
-
-    // Add resize listener
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
-  }, [width, isConnected, playerRef.current]);
+  }, [width]);
 
   if (hideOnDisconnect && !isConnected) {
     return null;
