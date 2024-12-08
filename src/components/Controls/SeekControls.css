@@ -59,7 +59,7 @@
   width: 18px;
   height: 24px;
   border-radius: 0.4em;
-  background: var(--grey);
+  background: var(--dark);
   cursor: pointer;
   position: relative;
   top: -3px;
