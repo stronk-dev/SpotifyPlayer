@@ -10,7 +10,7 @@ const VolumeControls = ({
 }) => (
   <div className="spotify-player-volume-control">
     <span>
-      <FaVolumeDown />
+      <FaVolumeDown height={32} width={32}/>
     </span>
     <input
       type="range"

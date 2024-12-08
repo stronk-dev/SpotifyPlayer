@@ -10,6 +10,12 @@
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.spotify-player-track-details h4 {
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 0.4em;
+}
+
 /* Table layout */
 
 .spotify-player-track-details-table {

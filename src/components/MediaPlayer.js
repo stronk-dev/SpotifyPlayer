@@ -1,7 +1,8 @@
-// Main container - connects with the API and general layout of subcomponents
+
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import useWebSocket from "../hooks/useWebSocket";
+import useComponentSize from "../hooks/useComponentSize";
 import AlbumCard from "./Album/AlbumCard";
 import DeviceTitle from "./Info/DeviceTitle";
 import TrackDetails from "./Info/TrackDetails";
@@ -33,6 +34,8 @@ const MediaPlayer = ({
   const [shuffleContext, setShuffleContext] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
   const intervalRef = useRef(null);
+  const playerRef = useRef(null);
+  const { width } = useComponentSize(playerRef);
 
   const { isConnected, error } = useWebSocket(websocketUrl, (event) => {
     switch (event.type) {
@@ -148,21 +151,88 @@ const MediaPlayer = ({
     return;
   }
 
+  const layoutClass =
+    width > 900
+      ? "spotify-player-widescreen-layout"
+      : width < 500
+        ? "spotify-player-portrait-layout"
+        : "spotify-player-default-layout";
+
   return (
-    <div className="spotify-player-spotify-card">
-      <div className="spotify-player-info-container">
-        <AlbumCard
-          title={track?.album_name || "N/A"}
-          subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
-          image={track?.album_cover_url}
-          isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
-        />
-        <div className="spotify-player-spotify-details">
-          <div className="spotify-player-details-container">
-            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} deviceType={status?.device_type} isPlaying={isPlaying} isStopped={isStopped} />
-            <TrackDetails track={track} formatReleaseDate={formatReleaseDate} isStopped={isStopped} />
+    <div ref={playerRef} className={`spotify-player-spotify-card ${layoutClass}`}>
+      {width < 500 ? (
+        <>
+          <div className="spotify-player-header">
+            <DeviceTitle
+              isConnected={isConnected}
+              deviceName={status?.device_name}
+              deviceType={status?.device_type}
+              isPlaying={isPlaying}
+              isStopped={isStopped}
+            />
           </div>
-          <div className="spotify-player-controls-container">
+          <div className="spotify-player-info-container">
+            <TrackDetails
+              track={track}
+              formatReleaseDate={formatReleaseDate}
+              isStopped={isStopped}
+            />
+            <SeekControls
+              duration={track?.duration || 100}
+              currentPosition={currentPosition || 100}
+              handleSeek={handleSeek}
+              isStopped={isStopped}
+            />
+            <MediaButtons
+              isPlaying={isPlaying}
+              handlePlayPause={handlePlayPause}
+              handleNextTrack={handleNextTrack}
+              handlePreviousTrack={previousTrack}
+              shuffleContext={shuffleContext}
+              toggleShuffle={toggleShuffle}
+              isStopped={isStopped}
+            />
+            <VolumeControls
+              volume={volume}
+              maxVolume={maxVolume}
+              handleVolumeChange={handleVolumeChange}
+              isStopped={isStopped}
+            />
+          </div>
+          <div className="spotify-player-bottom">
+            <AlbumCard
+              title={track?.album_name || "N/A"}
+              subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
+              image={track?.album_cover_url}
+              isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+            />
+          </div>
+        </>
+      ) : width > 900 ? (
+        <div className="spotify-player-info-container">
+          <div className="spotify-player-left">
+            <AlbumCard
+              title={track?.album_name || "N/A"}
+              subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
+              image={track?.album_cover_url}
+              isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+            />
+          </div>
+          <div className="spotify-player-middle">
+            <DeviceTitle
+              isConnected={isConnected}
+              deviceName={status?.device_name}
+              deviceType={status?.device_type}
+              isPlaying={isPlaying}
+              isStopped={isStopped}
+            />
+            <TrackDetails
+              track={track}
+              formatReleaseDate={formatReleaseDate}
+              isStopped={isStopped}
+            />
+          </div>
+          <div className="spotify-player-right">
             <MediaButtons
               isPlaying={isPlaying}
               handlePlayPause={handlePlayPause}
@@ -186,8 +256,59 @@ const MediaPlayer = ({
             />
           </div>
         </div>
-      </div>
-      {error && <span className="error">Error: {error}</span>}
+      ) : (
+        <>
+          <div className="spotify-player-header">
+            <DeviceTitle
+              isConnected={isConnected}
+              deviceName={status?.device_name}
+              deviceType={status?.device_type}
+              isPlaying={isPlaying}
+              isStopped={isStopped}
+            />
+          </div>
+          <div className="spotify-player-info-container">
+            <div className="spotify-player-left">
+              <AlbumCard
+                title={track?.album_name || "N/A"}
+                subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
+                image={track?.album_cover_url}
+                isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+              />
+            </div>
+            <div className="spotify-player-right">
+              <TrackDetails
+                track={track}
+                formatReleaseDate={formatReleaseDate}
+                isStopped={isStopped}
+              />
+              <SeekControls
+                duration={track?.duration || 100}
+                currentPosition={currentPosition || 100}
+                handleSeek={handleSeek}
+                isStopped={isStopped}
+              />
+            </div>
+          </div>
+          <div className="spotify-player-footer">
+            <MediaButtons
+              isPlaying={isPlaying}
+              handlePlayPause={handlePlayPause}
+              handleNextTrack={handleNextTrack}
+              handlePreviousTrack={previousTrack}
+              shuffleContext={shuffleContext}
+              toggleShuffle={toggleShuffle}
+              isStopped={isStopped}
+            />
+            <VolumeControls
+              volume={volume}
+              maxVolume={maxVolume}
+              handleVolumeChange={handleVolumeChange}
+              isStopped={isStopped}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

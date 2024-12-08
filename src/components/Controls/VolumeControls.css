@@ -12,7 +12,9 @@
 }
 
 .spotify-player-volume-control span{
-  flex: 1;
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
   justify-content: center;
   align-items: center;
   display: flex;

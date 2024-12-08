@@ -23,12 +23,9 @@ const TrackDetails = ({ track, formatReleaseDate, isStopped }) => {
   }
   return (
     <div className="spotify-player-track-details">
+      <h4>{track?.name || "N/A"}</h4>
       <table className="spotify-player-track-details-table">
         <tbody>
-          <tr className="spotify-player-track-details-row">
-            <td className="spotify-player-track-details-cell spotify-player-key-cell">Title</td>
-            <td className="spotify-player-track-details-cell spotify-player-value-cell">{track?.name || "N/A"}</td>
-          </tr>
           <tr className="spotify-player-track-details-row">
             <td className="spotify-player-track-details-cell spotify-player-key-cell">Album</td>
             <td className="spotify-player-track-details-cell spotify-player-value-cell">{track?.album_name || "N/A"}</td>
