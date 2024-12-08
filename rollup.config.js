@@ -8,6 +8,7 @@ import image from '@rollup/plugin-image';
 import dotenv from 'dotenv';
 import replace from '@rollup/plugin-replace';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import url from '@rollup/plugin-url';
 
 // Load `.env` variables
 dotenv.config();
@@ -54,6 +55,7 @@ export default {
       presets: ['@babel/preset-env', '@babel/preset-react'],
     }),
     image(),
+    url(),
     json(),
     css({
       inject: true,
