@@ -26,6 +26,7 @@ const MediaPlayer = ({
   const [volume, setLocalVolume] = useState(0);
   const [maxVolume, setMaxVolume] = useState(100);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
   const [shuffleContext, setShuffleContext] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
   const intervalRef = useRef(null);
@@ -38,9 +39,22 @@ const MediaPlayer = ({
         break;
       case "playing":
         setIsPlaying(true);
+        if (isStopped) {
+          setIsStopped(false);
+        }
         break;
       case "paused":
         setIsPlaying(false);
+        if (isStopped) {
+          setIsStopped(false);
+        }
+        break;
+      case "stopped":
+      case "inactive":
+        setIsStopped(true);
+        if (isPlaying) {
+          setIsPlaying(false);
+        }
         break;
       case "seek":
         setCurrentPosition(event.data.position);
@@ -59,11 +73,13 @@ const MediaPlayer = ({
   useEffect(() => {
     const fetchStatus = async () => {
       const data = await getStatus(apiBaseUrl);
+      const isStopped =  data.stopped || !data.play_origin.length || data.track == null;
       setStatus(data);
       setTrack(data.track);
       setLocalVolume(data.volume);
       setMaxVolume(data.volume_steps);
-      setIsPlaying(!data.paused);
+      setIsPlaying(!data.paused && !isStopped);
+      setIsStopped(isStopped);
       setShuffleContext(data.shuffle_context);
       setCurrentPosition(data.track?.position || 0);
     };
@@ -136,11 +152,12 @@ const MediaPlayer = ({
           title={track?.album_name || "N/A"}
           subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
           image={track?.album_cover_url}
+          isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
         />
         <div className="spotify-player-spotify-details">
           <div className="spotify-player-details-container">
-            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} deviceType={status?.device_type} isPlaying={isPlaying} />
-            <TrackDetails track={track} formatReleaseDate={formatReleaseDate} />
+            <DeviceTitle isConnected={isConnected} deviceName={status?.device_name} deviceType={status?.device_type} isPlaying={isPlaying} isStopped={isStopped} />
+            <TrackDetails track={track} formatReleaseDate={formatReleaseDate} isStopped={isStopped} />
           </div>
           <ControlsContainer
             isPlaying={isPlaying}
@@ -149,12 +166,13 @@ const MediaPlayer = ({
             handlePreviousTrack={previousTrack}
             shuffleContext={shuffleContext}
             toggleShuffle={toggleShuffle}
-            track={track}
-            currentPosition={currentPosition}
+            duration={track?.duration || 100}
+            currentPosition={currentPosition || 100}
             handleSeek={handleSeek}
             volume={volume}
             maxVolume={maxVolume}
             handleVolumeChange={handleVolumeChange}
+            isStopped={isStopped}
           />
         </div>
       </div>

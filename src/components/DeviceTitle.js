@@ -7,6 +7,7 @@ import {
   GiGamepad,
   GiTv,
   GiRadioTower,
+  GiNightSleep,
 } from "react-icons/gi";
 import { FaTabletAlt, FaCar, FaMusic, FaQuestionCircle, FaChromecast, FaExclamationCircle } from "react-icons/fa";
 import { MdWatch } from "react-icons/md";
@@ -31,9 +32,9 @@ const deviceIcons = {
   home_thing: GiRadioTower,
 };
 
-const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType }) => {
+const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType, isStopped }) => {
   const name = deviceType?.toLowerCase();
-  const Icon = deviceIcons[name] || FaQuestionCircle;
+  const Icon = isStopped ? GiNightSleep : deviceIcons[name] || FaQuestionCircle;
 
   return (
     <div className="spotify-player-device-title">

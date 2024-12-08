@@ -1,0 +1,45 @@
+/* Placeholder.css */
+.placeholder-album {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  background: var(--darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--grey);
+  background-image: linear-gradient(
+    135deg,
+    var(--darker) 25%,
+    var(--blue) 25%,
+    var(--blue) 50%,
+    var(--darker) 50%,
+    var(--darker) 75%,
+    var(--blue) 75%
+  );
+  background-size: 40px 40px;
+  animation: diagonal-lines 2s linear infinite;
+}
+
+/* Placeholder Icon */
+.placeholder-icon {
+  font-size: 1.2rem;
+  color: var(--lighter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.placeholder-text {
+  font-weight: bold;
+  color: var(--lightest);
+  text-align: center;
+  background-color: var(--darker);
+  padding: 0.4em;
+  border-radius: 0.4em;
+}

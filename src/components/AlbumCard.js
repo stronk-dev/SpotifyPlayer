@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './AlbumCard.css';
+import PlaceholderAlbum from "./PlaceHolderAlbum";
 
-const AlbumCard = ({ title, subtitle, image }) => {
+const AlbumCard = ({ title, subtitle, image, isStopped }) => {
   const [loaded, setLoaded] = useState(false);
   const [gradient, setGradient] = useState('');
   const canvasRef = useRef();
@@ -83,23 +84,27 @@ const AlbumCard = ({ title, subtitle, image }) => {
   return (
     <div
       className={"spotify-player-album-card-wrapper"}
-      style={{ '--gradient-border': rotatingGradient, opacity: loaded ? 1 : 0 }}
+      style={{ '--gradient-border': rotatingGradient, opacity: loaded || isStopped ? 1 : 0 }}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-      <div className="spotify-player-album-card-container">
-        <div className="spotify-player-album-card-container-border"></div>
-        <div className="spotify-player-album-card-image-container">
-          <img
-            className="spotify-player-album-card-image"
-            alt={`${title} - ${subtitle}`}
-            src={image}
-          />
-        </div>
-        <div className="spotify-player-album-card-title-container">
-          <div className="spotify-player-album-card-title">{title}</div>
-        </div>
-        <div className="spotify-player-album-card-subtitle">{subtitle}</div>
-      </div>
+      {
+        isStopped ? (<div className="spotify-player-album-card-image"><PlaceholderAlbum /></div>) : (
+          <div className="spotify-player-album-card-container">
+            <div className="spotify-player-album-card-container-border"></div>
+            <div className="spotify-player-album-card-image-container">
+              <img
+                className="spotify-player-album-card-image"
+                alt={`${title} - ${subtitle}`}
+                src={image}
+              />
+            </div>
+            <div className="spotify-player-album-card-title-container">
+              <div className="spotify-player-album-card-title">{title}</div>
+            </div>
+            <div className="spotify-player-album-card-subtitle">{subtitle}</div>
+          </div>
+        )
+      }
     </div>
   );
 };
