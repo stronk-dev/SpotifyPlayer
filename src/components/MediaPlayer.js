@@ -169,13 +169,6 @@ const MediaPlayer = ({
   };
 
   useEffect(() => {
-    // Trigger a resize event to force re-evaluation
-    setTimeout(() => {
-      window.dispatchEvent(new Event("resize"));
-    }, 5);
-  }, []);
-
-  useEffect(() => {
     updateLayout();
   }, [width]);
 

@@ -9,15 +9,26 @@ const useComponentSize = (ref) => {
         width: ref.current.offsetWidth,
         height: ref.current.offsetHeight,
       });
-    } else {
-      setSize(size);
     }
   };
 
   useEffect(() => {
-    updateSize();
+    if (ref.current) {
+      updateSize();
+    }
+
+    const observer = new MutationObserver(updateSize);
+    if (ref.current) {
+      observer.observe(ref.current, { attributes: true, childList: true, subtree: true });
+    }
+
     window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
+    return () => {
+      window.removeEventListener("resize", updateSize);
+      if (ref.current) {
+        observer.disconnect();
+      }
+    };
   }, [ref]);
 
   return size;
