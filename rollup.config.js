@@ -55,8 +55,13 @@ export default {
       presets: ['@babel/preset-env', '@babel/preset-react'],
     }),
     image(),
-    url(),
     json(),
+    url({
+      include: ["**/*.png", "**/*.jpg", "**/*.svg", "**/*.gif"],
+      limit: 0,
+      // fileName: "[dirname][hash][extname]",
+      // publicPath: "/dist/",
+    }),
     css({
       inject: true,
       minify: true
