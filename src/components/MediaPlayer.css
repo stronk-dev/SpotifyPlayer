@@ -440,11 +440,11 @@
   color: var(--blue);
 }
 
-.spotify-player-connected-icon.disconnected {
+.spotify-player-connected-icon.spotify-player-disconnected {
   color: var(--red);
 }
 
-.spotify-player-connected-icon.rotating {
+.spotify-player-connected-icon.spotify-player-rotating {
   animation: spin 2s linear infinite;
 }
 

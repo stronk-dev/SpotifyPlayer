@@ -88,6 +88,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background: url("../static/paper_fibers.png");
   opacity: 0.8;
   mix-blend-mode: overlay;
   background-size: cover;

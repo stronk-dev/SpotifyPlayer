@@ -52,7 +52,7 @@ const AlbumCard = ({ title, subtitle, image, isStopped }) => {
   useEffect(() => {
     if (image) {
       const img = new Image();
-      img.crossOrigin = 'Anonymous'; // Handle cross-origin images
+      img.crossOrigin = 'Anonymous'
       img.src = image;
 
       img.onload = () => {

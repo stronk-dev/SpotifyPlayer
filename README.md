@@ -1,4 +1,4 @@
-# SpotifyPlayer
+# react-librespot-controller
 [![NPM](https://img.shields.io/npm/v/@stronk-tech/react-librespot-controller.svg)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
 
 > [`go-librespot`](https://github.com/devgianlu/go-librespot) web frontend for small touchscreens

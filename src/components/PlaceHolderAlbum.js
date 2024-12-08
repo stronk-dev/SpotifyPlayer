@@ -3,9 +3,9 @@ import "./PlaceHolderAlbum.css";
 
 const PlaceholderAlbum = () => {
   return (
-    <div className="placeholder-album">
-      <div className="placeholder-icon">
-        <span className="placeholder-text">Stopped</span>
+    <div className="spotify-player-placeholder-album">
+      <div className="spotify-player-placeholder-icon">
+        <span className="spotify-player-placeholder-text">Stopped</span>
       </div>
     </div>
   );

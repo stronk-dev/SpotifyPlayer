@@ -39,9 +39,9 @@ const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType, isStopped
   return (
     <div className="spotify-player-device-title">
       {isConnected ? (
-        <Icon className={isPlaying ? "spotify-player-connected-icon rotating" : "spotify-player-connected-icon"} />
+        <Icon className={isPlaying ? "spotify-player-connected-icon spotify-player-rotating" : "spotify-player-connected-icon"} />
       ) : (
-        <FaExclamationCircle className="spotify-player-connected-icon disconnected" />
+        <FaExclamationCircle className="spotify-player-connected-icon spotify-player-disconnected" />
       )}
       <h4>{deviceName}</h4>
     </div>

@@ -1,5 +1,5 @@
 /* Placeholder.css */
-.placeholder-album {
+.spotify-player-placeholder-album {
   width: 120px;
   height: 120px;
   border-radius: 8px;
@@ -25,7 +25,7 @@
 }
 
 /* Placeholder Icon */
-.placeholder-icon {
+.spotify-player-placeholder-icon {
   font-size: 1.2rem;
   color: var(--lighter);
   display: flex;
@@ -35,7 +35,7 @@
   z-index: 1;
 }
 
-.placeholder-text {
+.spotify-player-placeholder-text {
   font-weight: bold;
   color: var(--lightest);
   text-align: center;
