@@ -34,7 +34,6 @@ const deviceIcons = {
 const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType }) => {
   const name = deviceType?.toLowerCase();
   const Icon = deviceIcons[name] || FaQuestionCircle;
-  console.log("Connected to " + deviceName + " of type " + deviceType)
 
   return (
     <div className="spotify-player-device-title">

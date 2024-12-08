@@ -1,7 +1,7 @@
 {
-  "name": "@stronk-tech/spotify-player",
+  "name": "@stronk-tech/react-librespot-controller",
   "description": "`go-librespot` web frontend for small touchscreens",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "files": [
@@ -64,7 +64,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stronk-dev/SpotifyPlayer.git"
+    "url": "git+https://github.com/stronk-dev/react-librespot-controller.git"
   },
   "keywords": [
     "spotify",
@@ -75,6 +75,6 @@
   "author": "Marco van Dijk",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/stronk-dev/SpotifyPlayer/issues"
+    "url": "https://github.com/stronk-dev/react-librespot-controller/issues"
   }
 }
