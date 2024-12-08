@@ -7,7 +7,7 @@ const AlbumCard = ({ title, subtitle, image }) => {
   const canvasRef = useRef();
   const [rotationDegree, setRotationDegree] = useState(() => {
     const currentTime = new Date().getTime();
-    return (currentTime / 100) % 360;
+    return (currentTime / 200) % 360;
   });
 
   // Extract dominant colors using Canvas API
@@ -71,8 +71,9 @@ const AlbumCard = ({ title, subtitle, image }) => {
   // Effect to rotate the gradient continuously at a slower pace
   useEffect(() => {
     const interval = setInterval(() => {
-      setRotationDegree(prevDegree => (prevDegree + 1) % 360);
-    }, 1000); // Update every 1 second for a smoother but less frequent rotation
+      const currentTime = new Date().getTime();
+      setRotationDegree((currentTime / 200) % 360);
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);
