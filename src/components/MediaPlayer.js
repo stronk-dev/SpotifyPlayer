@@ -176,8 +176,6 @@ const MediaPlayer = ({
     return null;
   }
 
-  console.log(isConnected);
-
   return (
     <div ref={playerRef} className="spotify-player-spotify-card">
       {width < 500 ? (
