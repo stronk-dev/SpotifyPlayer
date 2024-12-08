@@ -22,23 +22,6 @@
   position: relative;
 }
 
-.spotify-player-widescreen-layout {
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
-  justify-content: space-between;
-}
-
-.spotify-player-portrait-layout {
-  display: flex;
-  flex-direction: column;
-}
-
-.spotify-player-default-layout {
-  display: flex;
-  flex-direction: column;
-}
-
 /* Wrapper main contents */
 
 .spotify-player-info-container {
@@ -51,64 +34,78 @@
   flex: 1;
 }
 
-/* Default layout (500px - 900px) */
-@media (min-width: 500px) and (max-width: 900px) {
-  .spotify-player-header {
-    order: -1;
-  }
+/* Default layout */
 
-  .spotify-player-footer {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .spotify-player-info-container {
-    flex-direction: row;
-  }
-
-  .spotify-player-left {
-    justify-content: space-between;
-    height: 100%;
-    flex: 1;
-  }
-
-  .spotify-player-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-self: stretch;
-  }
+.spotify-player-default-layout {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Portrait layout (<500px) */
-@media (max-width: 500px) {
-  .spotify-player-info-container {
-    flex-direction: column;
-  }
-
-  .spotify-player-bottom {
-    order: 1;
-  }
+.spotify-player-default-layout .spotify-player-header {
+  order: -1;
 }
 
-/* Widescreen layout (>900px) */
-@media (min-width: 900px) {
-  .spotify-player-left {
-    flex: 1;
-  }
+.spotify-player-default-layout .spotify-player-footer {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .spotify-player-middle {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
+.spotify-player-default-layout .spotify-player-info-container {
+  flex-direction: row;
+}
 
-  .spotify-player-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
+.spotify-player-default-layout .spotify-player-left {
+  justify-content: space-between;
+  height: 100%;
+  flex: 1;
+}
+
+.spotify-player-default-layout .spotify-player-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+/* Portrait layout */
+
+.spotify-player-portrait-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.spotify-player-portrait-layout .spotify-player-info-container {
+  flex-direction: column;
+}
+
+.spotify-player-portrait-layout .spotify-player-bottom {
+  order: 1;
+}
+
+/* Widescreen layout */
+
+.spotify-player-widescreen-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: space-between;
+}
+
+.spotify-player-widescreen-layout .spotify-player-left {
+  flex: 1;
+}
+
+.spotify-player-widescreen-layout .spotify-player-middle {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.spotify-player-widescreen-layout .spotify-player-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }

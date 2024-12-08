@@ -61,11 +61,11 @@ If you set `hideOnDisconnect` to true, the entire component will hide itself whe
 # Screen shots
 The player arranges itself based on the screen dimensions, with three possible layouts:
 
+### Default layout
+![Default](screenshot_default.png)
+
 ### Wide screen
 ![Wide](screenshot_wide.png)
-
-### Narrow screen
-![Mid](screenshot_mid.png)
 
 ### Portrait screen
 ![Portrait](screenshot_portrait.png)

@@ -81,11 +81,3 @@
   cursor: not-allowed;
   background: var(--dark);
 }
-
-/* Portrait layout volume styling */
-@media (max-width: 500px){
-  .spotify-player-volume-control {
-    width: 100%;
-    padding: 0 1rem;
-  }
-}

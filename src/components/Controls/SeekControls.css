@@ -75,11 +75,3 @@
   cursor: not-allowed;
   background: var(--dark);
 }
-
-/* Portrait seekbar styling */
-@media (max-width: 500px){
-  .spotify-player-seek-container {
-    width: 100%;
-    padding: 0 1rem;
-  }
-}

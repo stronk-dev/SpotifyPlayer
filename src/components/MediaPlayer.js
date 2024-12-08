@@ -147,19 +147,42 @@ const MediaPlayer = ({
     return "Invalid Date"; // Return fallback for invalid formats
   };
 
+  useEffect(() => {
+    const updateLayout = () => {
+      if (playerRef.current) {
+        const layoutClass =
+          width > 900
+            ? "spotify-player-widescreen-layout"
+            : width < 500
+            ? "spotify-player-portrait-layout"
+            : "spotify-player-default-layout";
+
+        // Remove previous layout classes
+        playerRef.current.classList.remove(
+          "spotify-player-widescreen-layout",
+          "spotify-player-portrait-layout",
+          "spotify-player-default-layout"
+        );
+
+        // Add the current layout class
+        playerRef.current.classList.add(layoutClass);
+      }
+    };
+
+    // Initial update
+    updateLayout();
+
+    // Add resize listener
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
+  }, [width]);
+
   if (hideOnDisconnect && !isConnected) {
-    return;
+    return null;
   }
 
-  const layoutClass =
-    width > 900
-      ? "spotify-player-widescreen-layout"
-      : width < 500
-        ? "spotify-player-portrait-layout"
-        : "spotify-player-default-layout";
-
   return (
-    <div ref={playerRef} className={`spotify-player-spotify-card ${layoutClass}`}>
+    <div ref={playerRef} className="spotify-player-spotify-card">
       {width < 500 ? (
         <>
           <div className="spotify-player-header">
