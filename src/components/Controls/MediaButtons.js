@@ -9,20 +9,21 @@ const MediaButtons = ({
   handlePreviousTrack,
   shuffleContext,
   toggleShuffle,
-  isStopped
+  isStopped,
+  isConnected
 }) => (
   <div className="spotify-player-playback-controls">
-    <button onClick={handlePreviousTrack} className="spotify-player-control-button" disabled={isStopped}>
+    <button onClick={handlePreviousTrack} className="spotify-player-control-button" disabled={(isStopped || !isConnected)}>
       <FaStepBackward />
     </button>
-    <button onClick={handlePlayPause} className="spotify-player-control-button" disabled={isStopped}>
+    <button onClick={handlePlayPause} className="spotify-player-control-button" disabled={(isStopped || !isConnected)}>
       {isPlaying ? <FaPause /> : <FaPlay />}
     </button>
-    <button onClick={handleNextTrack} className="spotify-player-control-button" disabled={isStopped}>
+    <button onClick={handleNextTrack} className="spotify-player-control-button" disabled={(isStopped || !isConnected)}>
       <FaStepForward />
     </button>
 
-    {isStopped ? (
+    {(isStopped || !isConnected) ? (
       <div className={`spotify-player-toggle-container disabled`}>
         <div className="spotify-player-toggle-track-text">N/A</div>
         <div className="spotify-player-toggle-thumb disabled">

@@ -41,6 +41,10 @@
   height: 18px;
 }
 
+.spotify-player-volume-slider:disabled::-webkit-slider-runnable-track {
+  background: var(--dark);
+}
+
 .spotify-player-volume-slider::-webkit-slider-runnable-track:hover {
   background: var(--lightest);
   cursor: pointer;
@@ -54,7 +58,7 @@
 .spotify-player-volume-slider:disabled::-webkit-slider-runnable-track:hover {
   transform: none;
   cursor: not-allowed;
-  background: var(--lighter);
+  background: var(--dark);
 }
 
 .spotify-player-volume-slider::-webkit-slider-thumb {
@@ -71,7 +75,7 @@
 }
 
 .spotify-player-volume-slider:disabled::-webkit-slider-thumb {
-  background: var(--dark);
+  background: var(--darker);
 }
 
 .spotify-player-volume-slider::-webkit-slider-thumb:hover {
@@ -82,5 +86,5 @@
 .spotify-player-volume-slider:disabled::-webkit-slider-thumb:hover {
   transform: none;
   cursor: not-allowed;
-  background: var(--dark);
+  background: var(--darker);
 }

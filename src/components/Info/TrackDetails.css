@@ -4,7 +4,7 @@
   flex: 1;
   margin-top: 0.5em;
   background-color: var(--darkest);
-  padding: 0.3em;
+  padding: 0.5em;
   border-radius: 0.5em;
   border: 1px solid var(--grey);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
@@ -50,4 +50,22 @@
   flex-basis: 70%;
   color: var(--lightest);
   user-select: text;
+}
+
+/* Only message layout */
+
+.spotify-player-message {
+  width: 100%;
+  word-wrap: break-word;
+  text-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.0em;
+  color: var(--lightest);
+  user-select: text;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
 }

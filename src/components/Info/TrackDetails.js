@@ -1,23 +1,11 @@
 import React from "react";
 import './TrackDetails.css';
 
-const TrackDetails = ({ track, formatReleaseDate, isStopped }) => {
-  if (isStopped) {
+const TrackDetails = ({ track, formatReleaseDate, isStopped, isConnected }) => {
+  if (isStopped || !isConnected) {
     return (
-      <div className="spotify-player-track-details">
-        <table className="spotify-player-track-details-table">
-          <tbody>
-            <tr className="spotify-player-track-details-row">
-              <td className="spotify-player-track-details-cell spotify-player-key-cell">&nbsp;</td>
-            </tr>
-            <tr className="spotify-player-track-details-row" style={{ justifyContent: "center" }}>
-              <td className="spotify-player-track-details-cell spotify-player-key-cell" style={{ textWrap: "wrap" }}>The device is currently stopped. Please load a playlist or album.</td>
-            </tr>
-            <tr className="spotify-player-track-details-row">
-              <td className="spotify-player-track-details-cell spotify-player-key-cell">&nbsp;</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="spotify-player-track-details spotify-player-message">
+        {isConnected ? "The device is currently stopped. Please load a playlist or album." : "Not Connected."}
       </div>
     )
   }

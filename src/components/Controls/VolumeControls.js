@@ -6,7 +6,8 @@ const VolumeControls = ({
   handleVolumeChange,
   volume,
   maxVolume,
-  isStopped
+  isStopped,
+  isConnected
 }) => (
   <div className="spotify-player-volume-control">
     <span>
@@ -19,7 +20,7 @@ const VolumeControls = ({
       value={(volume / maxVolume) * 100}
       onChange={handleVolumeChange}
       className="spotify-player-volume-slider"
-      disabled={isStopped}
+      disabled={isStopped || !isConnected}
     />
     <span>
       <FaVolumeUp />

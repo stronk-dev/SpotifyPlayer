@@ -176,6 +176,8 @@ const MediaPlayer = ({
     return null;
   }
 
+  console.log(isConnected);
+
   return (
     <div ref={playerRef} className="spotify-player-spotify-card">
       {width < 500 ? (
@@ -194,12 +196,14 @@ const MediaPlayer = ({
               track={track}
               formatReleaseDate={formatReleaseDate}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <SeekControls
               duration={track?.duration || 100}
               currentPosition={currentPosition || 100}
               handleSeek={handleSeek}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <MediaButtons
               isPlaying={isPlaying}
@@ -209,12 +213,14 @@ const MediaPlayer = ({
               shuffleContext={shuffleContext}
               toggleShuffle={toggleShuffle}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <VolumeControls
               volume={volume}
               maxVolume={maxVolume}
               handleVolumeChange={handleVolumeChange}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
           </div>
           <div className="spotify-player-bottom">
@@ -223,6 +229,7 @@ const MediaPlayer = ({
               subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
               image={track?.album_cover_url}
               isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+              isConnected={isConnected}
             />
           </div>
         </>
@@ -234,6 +241,7 @@ const MediaPlayer = ({
               subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
               image={track?.album_cover_url}
               isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+              isConnected={isConnected}
             />
           </div>
           <div className="spotify-player-middle">
@@ -248,6 +256,7 @@ const MediaPlayer = ({
               track={track}
               formatReleaseDate={formatReleaseDate}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
           </div>
           <div className="spotify-player-right">
@@ -259,18 +268,21 @@ const MediaPlayer = ({
               shuffleContext={shuffleContext}
               toggleShuffle={toggleShuffle}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <SeekControls
               duration={track?.duration || 100}
               currentPosition={currentPosition || 100}
               handleSeek={handleSeek}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <VolumeControls
               volume={volume}
               maxVolume={maxVolume}
               handleVolumeChange={handleVolumeChange}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
           </div>
         </div>
@@ -292,6 +304,7 @@ const MediaPlayer = ({
                 subtitle={`Disc ${track?.disc_number || "N/A"}, Track ${track?.track_number || "N/A"}`}
                 image={track?.album_cover_url}
                 isStopped={isStopped || !track?.album_cover_url || !track?.album_cover_url?.length}
+                isConnected={isConnected}
               />
             </div>
             <div className="spotify-player-right">
@@ -299,12 +312,14 @@ const MediaPlayer = ({
                 track={track}
                 formatReleaseDate={formatReleaseDate}
                 isStopped={isStopped}
+                isConnected={isConnected}
               />
               <SeekControls
                 duration={track?.duration || 100}
                 currentPosition={currentPosition || 100}
                 handleSeek={handleSeek}
                 isStopped={isStopped}
+                isConnected={isConnected}
               />
             </div>
           </div>
@@ -317,12 +332,14 @@ const MediaPlayer = ({
               shuffleContext={shuffleContext}
               toggleShuffle={toggleShuffle}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
             <VolumeControls
               volume={volume}
               maxVolume={maxVolume}
               handleVolumeChange={handleVolumeChange}
               isStopped={isStopped}
+              isConnected={isConnected}
             />
           </div>
         </>

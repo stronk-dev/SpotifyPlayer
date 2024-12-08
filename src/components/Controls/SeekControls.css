@@ -42,6 +42,10 @@
   height: 18px;
 }
 
+.spotify-player-seek-bar:disabled::-webkit-slider-runnable-track {
+  background: var(--grey);
+}
+
 .spotify-player-seek-bar::-webkit-slider-runnable-track:hover {
   background: var(--lightest);
   cursor: pointer;
@@ -50,7 +54,7 @@
 .spotify-player-seek-bar:disabled::-webkit-slider-runnable-track:hover {
   transform: none;
   cursor: not-allowed;
-  background: var(--lighter);
+  background: var(--grey);
 }
 
 .spotify-player-seek-bar::-webkit-slider-thumb {

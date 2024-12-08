@@ -13,7 +13,8 @@ const SeekControls = ({
   duration,
   currentPosition,
   handleSeek,
-  isStopped
+  isStopped,
+  isConnected
 }) => (
   <div className="spotify-player-seek-container">
     <span>{formatTime(currentPosition)}</span>
@@ -24,7 +25,7 @@ const SeekControls = ({
       value={(currentPosition / duration) * 100}
       onChange={handleSeek}
       className="spotify-player-seek-bar"
-      disabled={isStopped}
+      disabled={isStopped || !isConnected}
     />
     <span>{formatTime(duration)}</span>
   </div>

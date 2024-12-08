@@ -44,7 +44,7 @@ const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType, isStopped
       ) : (
         <FaExclamationCircle className="spotify-player-connected-icon spotify-player-disconnected" />
       )}
-      <h4>{deviceName}</h4>
+      <h4>{isConnected ? deviceName : "Disconnected"}</h4>
     </div>
   );
 };

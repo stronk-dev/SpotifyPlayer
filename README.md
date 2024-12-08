@@ -31,7 +31,7 @@ WantedBy=default.target
 ## Config `go-librespot`
 TODO: instructions to enable the API
 
-Make sure to mention the bind address and to not expose API to public net.
+Make sure to mention the bind address.
 
 ## Standalone
 
@@ -45,8 +45,11 @@ Run `npm run test` for local debugging.
 Run `npm run static` to generate the build folder.
 
 TODO: build instructions
-TODO: nginx instructions
+
+TODO: nginx instructions. Include HTTPS instructions with local IP whitelist (+hairpin nat)
+
 TODO: OS instructions (auto-login, open browser, etc)
+
 
 ## Module
 
