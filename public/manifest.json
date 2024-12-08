@@ -1,6 +1,6 @@
 {
-  "short_name": "Livepeer-Transcoder-Dashboard",
-  "name": "stronk.rocks/ai",
+  "short_name": "squeezebox",
+  "name": "react-librespot-controller",
   "icons": [
     {
       "src": "favicon.ico",
