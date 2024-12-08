@@ -48,7 +48,8 @@
   "scripts": {
     "start": "NODE_ENV=development rollup -c --watch",
     "build": "NODE_ENV=production rollup -c",
-    "test": "react-scripts start"
+    "test": "react-scripts start",
+    "static": "react-scripts build"
   },
   "browserslist": {
     "production": [
