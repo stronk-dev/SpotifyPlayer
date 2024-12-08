@@ -154,8 +154,8 @@ const MediaPlayer = ({
           width > 900
             ? "spotify-player-widescreen-layout"
             : width < 500
-            ? "spotify-player-portrait-layout"
-            : "spotify-player-default-layout";
+              ? "spotify-player-portrait-layout"
+              : "spotify-player-default-layout";
 
         // Remove previous layout classes
         playerRef.current.classList.remove(
@@ -175,7 +175,7 @@ const MediaPlayer = ({
     // Add resize listener
     window.addEventListener("resize", updateLayout);
     return () => window.removeEventListener("resize", updateLayout);
-  }, [width]);
+  }, [width, isConnected, playerRef.current]);
 
   if (hideOnDisconnect && !isConnected) {
     return null;
