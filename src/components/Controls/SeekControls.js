@@ -1,7 +1,8 @@
+// Seek controls - displays the current playback position, duration and a draggable input
 import React, { useState, useRef, useEffect } from "react";
 import './SeekControls.css';
 
-const throttleDelay = 600;
+const throttleDelay = 500; //< Min amount of time between API calls
 
 const formatTime = (milliseconds) => {
   const totalSeconds = Math.floor(milliseconds / 1000);
@@ -10,25 +11,30 @@ const formatTime = (milliseconds) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
+// TODO: add more comments, IE for props
 const SeekControls = ({
   duration,
-  currentPosition,
+  remotePosition,
   handleSeek,
   isStopped,
-  isConnected
+  isConnected,
+  isPlaying
 }) => {
-  const [localPosition, setLocalPosition] = useState(currentPosition);
-  const timeoutRef = useRef(null);
-  const lastCallTimeRef = useRef(0);
+  const [localPosition, setLocalPosition] = useState(remotePosition); //< Local position for responsiveness while throttling outgoing API calls
+  const intervalRef = useRef(null); //< Used to update the remotePosition on a timeout
+  const timeoutRef = useRef(null); //< Used to space out API calls if we're quicker than the rate limit
+  const lastCallTimeRef = useRef(0); //< Last time we sent out an API call to seek
+  const isDraggingRef = useRef(false); //< Tracks whether the user is dragging
 
+  // Throttled seeking - instantly applies changes locally, but prevents spamming the API while dragging
   const onSeekChange = (e) => {
     const value = (e.target.value / 100) * duration;
     setLocalPosition(value);
+    isDraggingRef.current = true;
 
-    // Throttled API call
     const now = Date.now();
     if (now - lastCallTimeRef.current > throttleDelay) {
-      handleSeek(e); // Call the API
+      handleSeek(e);
       lastCallTimeRef.current = now;
     } else {
       // Clear previous timeout if one exists
@@ -42,11 +48,40 @@ const SeekControls = ({
     }
   };
 
-  useEffect(() => {
-    if (!lastCallTimeRef.current || Date.now() - lastCallTimeRef.current > throttleDelay) {
-      setLocalPosition(currentPosition);
+  // Make the final API call when dragging ends
+  const onSeekEnd = (e) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
-  }, [currentPosition]);
+    handleSeek(e);
+    isDraggingRef.current = false;
+  };
+
+  // Update the local position when the remote position updates - but only if we're not currently seeking
+  useEffect(() => {
+    if (!isDraggingRef.current) {
+      setLocalPosition(remotePosition);
+    }
+  }, [remotePosition]);
+
+  // Emulate playback for as long as we don't receive any updates on the remote position or are seeking
+  useEffect(() => {
+    if (isPlaying && duration) {
+      intervalRef.current = setInterval(() => {
+        // Skip if we are currently seeking
+        if (isDraggingRef.current) {
+          return;
+        }
+        setLocalPosition((prev) => {
+          const nextPosition = prev + 1000;
+          return nextPosition < duration ? nextPosition : duration;
+        });
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [isPlaying, duration]);
 
   return (
     <div className="spotify-player-seek-container">
@@ -57,6 +92,8 @@ const SeekControls = ({
         max="100"
         value={(localPosition / duration) * 100}
         onChange={onSeekChange}
+        onMouseUp={onSeekEnd}
+        onTouchEnd={onSeekEnd}
         className="spotify-player-seek-bar"
         disabled={isStopped || !isConnected}
       />

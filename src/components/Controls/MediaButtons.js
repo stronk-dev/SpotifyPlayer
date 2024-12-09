@@ -1,7 +1,9 @@
+// Media control buttons - play, pause, forward, backward, shuffle
 import React from "react";
 import { FaPlay, FaPause, FaStepForward, FaStepBackward, FaRandom } from "react-icons/fa";
 import './MediaButtons.css';
 
+// TODO: add more comments, IE for props
 const MediaButtons = ({
   isPlaying,
   handlePlayPause,

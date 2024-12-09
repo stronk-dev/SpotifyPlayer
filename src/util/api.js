@@ -1,3 +1,6 @@
+// Collection of go-librespot API calls
+// NOTE: call getStatus to initialize the library. Otherwise apiBaseUrl remains unset.
+let apiBaseUrl = "";
 
 /**
  * Generic API call function with error handling.
@@ -20,19 +23,13 @@ const callApi = async (url, options = {}, defaultReturnValue = {}) => {
   }
 };
 
-let apiBaseUrl = "";
-
-/**
- * General
- */
+// Not sure what this is for, maybe for health checking?
 export const checkAPI = async () => {
   const response = await callApi(`${apiBaseUrl}/`, {}, {});
   return response.json();
 }
 
-/**
- * Status
- */
+// Gets the entire status JSON blob. Also initializes apiBaseUrl
 export const getStatus = async (baseUrl) => {
   if (apiBaseUrl !== baseUrl) {
     apiBaseUrl = baseUrl;
@@ -44,6 +41,7 @@ export const getStatus = async (baseUrl) => {
 /**
  * Player Controls
  */
+
 export const play = async (payload) =>
   await callApi(`${apiBaseUrl}/player/play`, {
     method: "POST",
@@ -73,6 +71,7 @@ export const previousTrack = async () =>
 /**
  * Seek Controls
  */
+
 export const seek = async (position, relative = false) =>
   await callApi(`${apiBaseUrl}/player/seek`, {
     method: "POST",
@@ -83,6 +82,7 @@ export const seek = async (position, relative = false) =>
 /**
  * Volume Controls
  */
+
 export const getVolume = async () => {
   const response = await callApi(`${apiBaseUrl}/player/volume`, {}, {});
   return response.json();
@@ -98,6 +98,7 @@ export const setVolume = async (volume, relative = false) =>
 /**
  * Repeat and Shuffle
  */
+
 export const toggleRepeatContext = async (repeat_context) =>
   await callApi(`${apiBaseUrl}/player/repeat_context`, {
     method: "POST",
@@ -122,6 +123,7 @@ export const toggleShuffleContext = async (shuffle_context) =>
 /**
  * Queue Management
  */
+
 export const addToQueue = async (uri) =>
   await callApi(`${apiBaseUrl}/player/add_to_queue`, {
     method: "POST",

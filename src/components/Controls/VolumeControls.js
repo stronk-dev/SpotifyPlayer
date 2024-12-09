@@ -1,29 +1,32 @@
+// Volume controls - displays the current volume and draggable input
 import React, { useState, useRef, useEffect } from "react";
 import { FaVolumeDown, FaVolumeUp } from "react-icons/fa";
 import './VolumeControls.css';
 
-const throttleDelay = 500;
+const throttleDelay = 300; //< Min amount of time between API calls
 
+// TODO: add more comments, IE for props
 const VolumeControls = ({
   handleVolumeChange,
-  volume,
+  remoteVolume,
   maxVolume,
   isStopped,
   isConnected
 }) => {
-  const [localVolume, setLocalVolume] = useState(volume);
-  const timeoutRef = useRef(null);
-  const lastCallTimeRef = useRef(0);
+  const [localVolume, setLocalVolume] = useState(remoteVolume); //< Local volume for responsiveness while throttling outgoing API calls
+  const timeoutRef = useRef(null); //< Used to space out API calls if we're quicker than the rate limit
+  const lastCallTimeRef = useRef(0); //< Last time we sent out an API call to seek
+  const isDraggingRef = useRef(false); //< Tracks whether the user is dragging
 
+  // Throttled volume change - instantly applies changes locally, but prevents spamming the API while dragging
   const onVolumeChange = (e) => {
     const value = (e.target.value / 100) * maxVolume;
     setLocalVolume(value);
+    isDraggingRef.current = true;
 
-    // Throttled API call
     const now = Date.now();
-
     if (now - lastCallTimeRef.current > throttleDelay) {
-      handleVolumeChange(e); // Call the API
+      handleVolumeChange(e);
       lastCallTimeRef.current = now;
     } else {
       // Clear previous timeout if one exists
@@ -37,11 +40,21 @@ const VolumeControls = ({
     }
   };
 
-  useEffect(() => {
-    if (!lastCallTimeRef.current || Date.now() - lastCallTimeRef.current > throttleDelay) {
-      setLocalVolume(volume);
+  // Make the final API call when dragging ends
+  const onDragEnd = (e) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
-  }, [volume]);
+    handleVolumeChange(e);
+    isDraggingRef.current = false;
+  };
+
+  // Update the local volume when the remote volume updates - but only if we're not currently seeking
+  useEffect(() => {
+    if (!isDraggingRef.current) {
+      setLocalVolume(remoteVolume);
+    }
+  }, [remoteVolume]);
 
   return (
     <div className="spotify-player-volume-control">
@@ -54,6 +67,8 @@ const VolumeControls = ({
         max="100"
         value={(localVolume / maxVolume) * 100}
         onChange={onVolumeChange}
+        onMouseUp={onDragEnd}
+        onTouchEnd={onDragEnd}
         className="spotify-player-volume-slider"
         disabled={isStopped || !isConnected}
       />

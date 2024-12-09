@@ -1,3 +1,4 @@
+// Displays a header with the client device name and an icon depending on device type
 import React from "react";
 import {
   GiCompactDisc,
@@ -11,8 +12,9 @@ import {
 } from "react-icons/gi";
 import { FaTabletAlt, FaCar, FaMusic, FaQuestionCircle, FaChromecast, FaExclamationCircle } from "react-icons/fa";
 import { MdWatch } from "react-icons/md";
-import './DeviceTitle.css';
+import './Header.css';
 
+// Mapping from device type to which Icon we should render
 const deviceIcons = {
   computer: GiLaptop,
   tablet: FaTabletAlt,
@@ -33,10 +35,11 @@ const deviceIcons = {
   home_thing: GiRadioTower,
 };
 
-const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType, isStopped }) => {
-  const name = deviceType?.toLowerCase();
-  const Icon = isStopped ? GiNightSleep : deviceIcons[name] || FaQuestionCircle;
-
+// TODO: expand with settings button
+// TODO: expand with playlists/albums/explore button once we can get albums/playlists from the API
+// TODO: add more comments, IE for props
+const Header = ({ isConnected, deviceName, isPlaying, deviceType, isStopped }) => {
+  const Icon = isStopped ? GiNightSleep : deviceIcons[deviceType?.toLowerCase()] || FaQuestionCircle;
   return (
     <div className="spotify-player-device-title">
       {isConnected ? (
@@ -49,4 +52,4 @@ const DeviceTitle = ({ isConnected, deviceName, isPlaying, deviceType, isStopped
   );
 };
 
-export default DeviceTitle;
+export default Header;
