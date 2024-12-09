@@ -77,11 +77,11 @@
 }
 
 .spotify-player-toggle-container.off {
-  background: var(--darkest);
+  background: var(--dark);
 }
 
 .spotify-player-toggle-container.disabled {
-  background: var(--dark);
+  background: var(--darker);
 }
 
 .spotify-player-toggle-container.disabled:hover {
