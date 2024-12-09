@@ -1,5 +1,9 @@
 # react-librespot-controller
 [![NPM](https://img.shields.io/npm/v/@stronk-tech/react-librespot-controller.svg)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
+[![NPM](https://img.shields.io/npm/last-update/@stronk-tech/react-librespot-controller)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
+[![NPM](https://img.shields.io/npm/dy/@stronk-tech/react-librespot-controller)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
+[![NPM](https://img.shields.io/bundlephobia/min/@stronk-tech/react-librespot-controller)](https://www.npmjs.com/package/@stronk-tech/react-librespot-controller)
+[![GitHub License](https://img.shields.io/github/license/stronk-dev/react-librespot-controller)](https://github.com/stronk-dev/react-librespot-controller/blob/master/LICENSE)
 
 > [`go-librespot`](https://github.com/devgianlu/go-librespot) squeezebox-alike web frontend for small touchscreens
 
