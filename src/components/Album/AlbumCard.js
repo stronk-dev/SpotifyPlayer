@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PlaceholderAlbum from "./PlaceHolderAlbum";
 import './AlbumCard.css';
 
+// NOTE: should we make the gradient spin faster? Maybe a full revolution over the course of a song?
 const AlbumCard = ({ title, subtitle, image, isStopped }) => {
   const [loaded, setLoaded] = useState(false);
   const [gradient, setGradient] = useState('');

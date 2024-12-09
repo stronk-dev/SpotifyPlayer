@@ -1,6 +1,7 @@
 import React from "react";
 import "./PlaceHolderAlbum.css";
 
+// TODO: we could do something fun here, like a bouncing DVD logo!
 const PlaceholderAlbum = () => {
   return (
     <div className="spotify-player-placeholder-album">

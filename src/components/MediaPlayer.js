@@ -144,7 +144,7 @@ const MediaPlayer = ({
       const day = match[3].padStart(2, "0");   // Ensure two-digit day
       return `${year}-${month}-${day}`;
     }
-    return "Invalid Date"; // Return fallback for invalid formats
+    return releaseDate; // Return as-is for invalid formats
   };
 
   const updateLayout = () => {

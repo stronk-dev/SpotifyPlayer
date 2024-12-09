@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-const RECONNECT_DELAY_BASE = 200; // Initial reconnect delay: 1 second
-const MAX_RECONNECT_DELAY = 30000; // Maximum reconnect delay: 30 seconds
-const MAX_RETRIES = 10; // Maximum reconnection attempts
+// TODO: Allow these to be set via the environtment file or as props
+const RECONNECT_DELAY_BASE = 200;
+const MAX_RECONNECT_DELAY = 30000;
+const MAX_RETRIES = 10;
 
 /**
  * React hook to manage WebSocket connections with robust reconnection handling.
