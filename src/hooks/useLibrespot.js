@@ -91,6 +91,9 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       console.error("Unable to skip back, as the player is inactive.");
       return;
     }
+    if (!isPlaying) {
+      resume();
+    }
     previousTrack();
   };
 
@@ -100,11 +103,11 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       console.error("Unable to skip track, as the player is inactive.");
       return;
     }
-    seek(trackInfo.duration - 5);
-    setRemotePosition(trackInfo.duration - 5);
     if (!isPlaying) {
       resume();
     }
+    seek(trackInfo.duration - 5);
+    setRemotePosition(trackInfo.duration - 5);
   };
 
   // Seeks to a % of the current duration.
