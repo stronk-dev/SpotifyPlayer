@@ -8,7 +8,7 @@ const TextInfo = ({ track, isStopped, isConnected, error }) => {
   if (isStopped || !isConnected) {
     return (
       <div className="spotify-player-track-details spotify-player-message">
-        {isConnected ? "The device is currently stopped. Please load a playlist or album." : "Not Connected."}
+        {isConnected ? "The device is currently stopped. Please load a playlist or album." : "Waiting for API connection..."}
       </div>
     )
   }
