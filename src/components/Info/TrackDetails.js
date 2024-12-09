@@ -1,7 +1,8 @@
 import React from "react";
 import './TrackDetails.css';
 
-const TrackDetails = ({ track, formatReleaseDate, isStopped, isConnected }) => {
+// TODO: should display the error somewhere at some point
+const TrackDetails = ({ track, formatReleaseDate, isStopped, isConnected, error }) => {
   if (isStopped || !isConnected) {
     return (
       <div className="spotify-player-track-details spotify-player-message">

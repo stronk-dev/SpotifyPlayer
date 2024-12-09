@@ -147,28 +147,28 @@ const MediaPlayer = ({
     return releaseDate; // Return as-is for invalid formats
   };
 
-  const updateLayout = () => {
-    if (playerRef.current) {
-      const layoutClass =
-        width > 900
-          ? "spotify-player-widescreen-layout"
-          : width < 500
-            ? "spotify-player-portrait-layout"
-            : "spotify-player-default-layout";
-
-      // Remove previous layout classes
-      playerRef.current.classList.remove(
-        "spotify-player-widescreen-layout",
-        "spotify-player-portrait-layout",
-        "spotify-player-default-layout"
-      );
-
-      // Add the current layout class
-      playerRef.current.classList.add(layoutClass);
-    }
-  };
-
   useEffect(() => {
+    const updateLayout = () => {
+      if (playerRef.current) {
+        const layoutClass =
+          width > 900
+            ? "spotify-player-widescreen-layout"
+            : width < 500
+              ? "spotify-player-portrait-layout"
+              : "spotify-player-default-layout";
+  
+        // Remove previous layout classes
+        playerRef.current.classList.remove(
+          "spotify-player-widescreen-layout",
+          "spotify-player-portrait-layout",
+          "spotify-player-default-layout"
+        );
+  
+        // Add the current layout class
+        playerRef.current.classList.add(layoutClass);
+      }
+    };
+  
     updateLayout();
   }, [width]);
 
@@ -195,6 +195,7 @@ const MediaPlayer = ({
               formatReleaseDate={formatReleaseDate}
               isStopped={isStopped}
               isConnected={isConnected}
+              error={error}
             />
             <SeekControls
               duration={track?.duration || 100}
@@ -255,6 +256,7 @@ const MediaPlayer = ({
               formatReleaseDate={formatReleaseDate}
               isStopped={isStopped}
               isConnected={isConnected}
+              error={error}
             />
           </div>
           <div className="spotify-player-right">
@@ -311,6 +313,7 @@ const MediaPlayer = ({
                 formatReleaseDate={formatReleaseDate}
                 isStopped={isStopped}
                 isConnected={isConnected}
+                error={error}
               />
               <SeekControls
                 duration={track?.duration || 100}

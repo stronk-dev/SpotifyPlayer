@@ -129,7 +129,7 @@ export const addToQueue = async (uri) =>
     body: JSON.stringify({ uri }),
   });
 
-export default {
+const exports = {
   checkAPI,
   getStatus,
   play,
@@ -146,3 +146,4 @@ export default {
   toggleShuffleContext,
   addToQueue,
 };
+export default exports;
