@@ -80,7 +80,10 @@ const AlbumCard = ({ title, subtitle, image, isStopped }) => {
 
   // On inital render set an interval to rotate the image
   useEffect(() => {
-    const interval = setInterval(setRotationDegree, rotationUpdateInterval);
+    const interval = setInterval(() => {
+      const currentTime = new Date().getTime();
+      setRotationDegree((currentTime / rotationDenominator) % 360);
+    }, rotationUpdateInterval);
     return () => clearInterval(interval);
   }, []);
 
