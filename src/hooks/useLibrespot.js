@@ -62,6 +62,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
   // (Re)load on initial render or whenever the API endpoint changes.
   useEffect(() => {
     const fetchStatus = async () => {
+      console.log("Refreshing state");
       const data = await getStatus(apiBaseUrl);
       const isStopped = data.stopped || !data.play_origin.length || data.track == null;
       setStatus(data); //< TODO: remove long term.
@@ -73,8 +74,11 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       setShuffleContext(data.shuffle_context);
       setRemotePosition(data.track?.position || 0);
     };
-    fetchStatus();
-  }, [apiBaseUrl]);
+    // Refresh state on each (re)connect
+    if (isConnected){
+      fetchStatus();
+    }
+  }, [apiBaseUrl, isConnected]);
 
   // Call pause or resume depending on the current state of the player
   const handlePlayPause = () => {
