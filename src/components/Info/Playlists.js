@@ -18,7 +18,7 @@ const Playlists = ({ playlists, onSelect, onPlay }) => {
     if (!wrapperRef.current) return;
     const { scrollLeft } = wrapperRef.current;
     // Hide arrow if scrolled near the end
-    setArrowVisible(scrollLeft < 20);
+    setArrowVisible(scrollLeft < 1);
     setArrowOffset(scrollLeft);
   };
 

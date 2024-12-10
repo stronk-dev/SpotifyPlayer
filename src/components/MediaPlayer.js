@@ -12,6 +12,9 @@ import MediaButtons from "./Controls/MediaButtons";
 import VolumeControls from "./Controls/VolumeControls";
 import "./MediaPlayer.css";
 
+const thresholdWidescreen = 800;
+const thresholdNarrowscreen = 450;
+
 // TODO: add props for forcing a layout
 // TODO: add more comments, IE for props
 const MediaPlayer = ({
@@ -40,7 +43,7 @@ const MediaPlayer = ({
     error,
     playlists,
   } = useLibrespot(websocketUrl, apiBaseUrl);
-  const { width } = useComponentSize(playerRef); //< Retrieve dimensions of media player
+  const { width, height } = useComponentSize(playerRef); //< Retrieve dimensions of media player
   const [activeTab, setActiveTab] = useState("Info"); //< Text info view or Playlist selection
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [arrowOffset, setArrowOffset] = useState(0); 
@@ -74,9 +77,9 @@ const MediaPlayer = ({
     const updateLayout = () => {
       if (playerRef.current) {
         const layoutClass =
-          width > 900
+          width > thresholdWidescreen
             ? "spotify-player-widescreen-layout"
-            : width < 500
+            : width < thresholdNarrowscreen
               ? "spotify-player-portrait-layout"
               : "spotify-player-default-layout";
 
@@ -105,7 +108,7 @@ const MediaPlayer = ({
 
   return (
     <div ref={playerRef} className="spotify-player-spotify-card">
-      {width < 500 ? (
+      {width < thresholdNarrowscreen ? (
         <>
           <Header
             isConnected={isConnected}
@@ -164,7 +167,7 @@ const MediaPlayer = ({
             />
           </div>
         </>
-      ) : width > 900 ? (
+      ) : width > thresholdWidescreen ? (
         <div className="spotify-player-info-container">
           <div className="spotify-player-left">
             <AlbumCard

@@ -96,6 +96,8 @@
 
 .spotify-player-portrait-layout .spotify-player-bottom {
   order: 1;
+  max-width: 300px;
+  align-self: center;
 }
 
 .spotify-player-portrait-layout .spotify-player-playlists-wrapper,
@@ -125,8 +127,7 @@
 
 .spotify-player-widescreen-layout .spotify-player-right {
   gap: 0;
-  height: 100%;
-  align-self: flex-start;
+  align-self: stretch;
 }
 
 .spotify-player-widescreen-layout .spotify-player-middle {
@@ -134,10 +135,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.4em;
-  height: 100%;
   overflow-x: auto;
   box-sizing: border-box;
-  align-self: flex-start;
+  align-self: stretch;
 }
 
 .spotify-player-widescreen-layout .spotify-player-playlists-wrapper {
