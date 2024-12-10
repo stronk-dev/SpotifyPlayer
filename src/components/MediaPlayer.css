@@ -98,6 +98,13 @@
   order: 1;
 }
 
+.spotify-player-portrait-layout .spotify-player-playlists-wrapper,
+.spotify-player-portrait-layout .spotify-player-track-details {
+  height: 200px;
+  margin: 0;
+  flex: unset;
+}
+
 .spotify-player-portrait-layout .spotify-player-playlist-container {
   grid-template-rows: repeat(2, minmax(50px, auto));
   grid-auto-flow: column;
@@ -119,6 +126,7 @@
 .spotify-player-widescreen-layout .spotify-player-right {
   gap: 0;
   height: 100%;
+  align-self: flex-start;
 }
 
 .spotify-player-widescreen-layout .spotify-player-middle {
@@ -129,6 +137,7 @@
   height: 100%;
   overflow-x: auto;
   box-sizing: border-box;
+  align-self: flex-start;
 }
 
 .spotify-player-widescreen-layout .spotify-player-playlists-wrapper {

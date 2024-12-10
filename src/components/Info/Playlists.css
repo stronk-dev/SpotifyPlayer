@@ -37,17 +37,21 @@
   transform: translateY(-50%);
   font-size: 2rem;
   color: var(--subtext-color);
+  padding: 0.2em;
+  background-color: var(--darker);
+  border-radius: 0.4em;
   pointer-events: none;
   opacity: 0.7;
   transition: opacity 0.2s ease-in-out, transform 0.0s ease;
+  z-index: 99;
 }
 
 .spotify-player-arrow.arrow-visible {
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
-.spotify-player-arrow:hover {
-  opacity: 1;
+.spotify-player-playlists-wrapper:hover .spotify-player-arrow.arrow-visible {
+  opacity: 0.6;
 }
 
 .spotify-player-arrow.arrow-hidden {
