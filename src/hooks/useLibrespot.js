@@ -6,15 +6,18 @@ import {
   resume,
   pause,
   seek,
+  play,
   previousTrack,
   setVolume,
   toggleShuffleContext,
+  getPlaylists
 } from "../util/api";
 
 // TODO: add more comments, IE for props
 const useLibrespot = (websocketUrl, apiBaseUrl) => {
   const [status, setStatus] = useState(null); //< Remote long term, contains entire response of getStatus call.
   const [trackInfo, setTrack] = useState(null); //< Track details
+  const [playlists, setPlaylists] = useState(null); //< Playlist details
   const [remotePosition, setRemotePosition] = useState(0); //< Spotify last known playback position
   const [remoteVolume, setRemoteVolume] = useState(0); //< Spotify last known volume level
   const [maxVolume, setMaxVolume] = useState(100); //< Spotify last known max volume (steps)
@@ -74,9 +77,16 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       setShuffleContext(data.shuffle_context);
       setRemotePosition(data.track?.position || 0);
     };
+    const fetchPlaylists = async () => {
+      console.log("Refreshing playlists");
+      const data = await getPlaylists(apiBaseUrl);
+      console.log("Retrieve %i out of %i playlists", data.items.length, data.total)
+      setPlaylists(data.items);
+    };
     // Refresh state on each (re)connect
     if (isConnected){
       fetchStatus();
+      fetchPlaylists();
     }
   }, [apiBaseUrl, isConnected]);
 
@@ -86,7 +96,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       console.error("Unable to play/pause, as the player is inactive.");
       return;
     }
-    isPlaying ? pause() : resume();
+    isPlaying ? pause(apiBaseUrl) : resume(apiBaseUrl);
   };
 
   // Simply calls the previous track API call
@@ -96,9 +106,9 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       return;
     }
     if (!isPlaying) {
-      resume();
+      resume(apiBaseUrl);
     }
-    previousTrack();
+    previousTrack(apiBaseUrl);
   };
 
   // Skips to the next track by seeking to the end of the track
@@ -108,10 +118,20 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       return;
     }
     if (!isPlaying) {
-      resume();
+      resume(apiBaseUrl);
     }
-    seek(trackInfo.duration - 5);
+    seek(apiBaseUrl, trackInfo.duration - 5);
     setRemotePosition(trackInfo.duration - 5);
+  };
+
+  // 
+  const handlePlay = (uri) => {
+    const payload = {
+      uri,
+      // skip_to_uri: uri,
+      paused: false
+    }
+    play(apiBaseUrl, payload);
   };
 
   // Seeks to a % of the current duration.
@@ -121,7 +141,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       return;
     }
     const seekTo = (event.target.value / 100) * trackInfo.duration;
-    seek(Math.floor(seekTo));
+    seek(apiBaseUrl, Math.floor(seekTo));
   };
 
   // Seeks to a % of the max volume
@@ -131,7 +151,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       return;
     }
     const newVolume = (event.target.value / 100) * maxVolume;
-    setVolume(Math.round(newVolume));
+    setVolume(apiBaseUrl, Math.round(newVolume));
   };
 
   // Toggles shuffle mode
@@ -140,7 +160,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       console.error("Unable to toggle shuffle mode, as the player is inactive.");
       return;
     }
-    toggleShuffleContext(!shuffleContext);
+    toggleShuffleContext(apiBaseUrl, !shuffleContext);
   };
 
   return {
@@ -153,6 +173,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
     isPlaying,
     isStopped,
     shuffleContext,
+    handlePlay,
     handlePlayPause,
     handlePrevTrack,
     handleNextTrack,
@@ -161,6 +182,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
     toggleShuffle,
     isConnected,
     error,
+    playlists,
   };
 };
 

@@ -1,9 +1,10 @@
 /* Placeholder.css */
 .spotify-player-placeholder-album {
-  height: 120px;
   border-radius: 8px;
   background: var(--darker);
   display: flex;
+  aspect-ratio: 1/1;
+  width: 100%;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

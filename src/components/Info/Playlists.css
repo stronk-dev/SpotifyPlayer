@@ -1,0 +1,137 @@
+.spotify-player-playlists-wrapper {
+  overflow: hidden;
+  flex: 1;
+  box-sizing: border-box;
+  overflow-x: auto;
+  background-color: var(--darkest);
+  border: 1px solid var(--grey);
+  padding: 1.2em;
+  border-radius: 0.5em;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.spotify-player-playlist-container {
+  display: grid;
+  gap: 1em;
+}
+
+.spotify-player-playlist-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.spotify-player-playlist-container::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 10px;
+}
+
+.spotify-player-playlist-container::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+.spotify-player-arrow {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--subtext-color);
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out, transform 0.0s ease;
+}
+
+.spotify-player-arrow.arrow-visible {
+  opacity: 0.7;
+}
+
+.spotify-player-arrow:hover {
+  opacity: 1;
+}
+
+.spotify-player-arrow.arrow-hidden {
+  opacity: 0;
+}
+
+.spotify-player-playlist-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.5em;
+  padding: 0.5em;
+  background-color: var(--dark);
+  border: 1px solid var(--button-border);
+  border-radius: 0.5em;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  overflow: hidden;
+  width: 200px;
+}
+
+.spotify-player-playlist-item:hover {
+  transform: scale(1.05);
+  background-color: var(--grey);
+}
+
+.spotify-player-playlist-item.active {
+  background-color: var(--accent-color);
+}
+
+.spotify-player-playlist-item.active .spotify-player-playlist-info h4 {
+  color: var(--darkest);
+}
+
+.spotify-player-playlist-item.active .spotify-player-playlist-info p {
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.spotify-player-playlist-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 0.5em;
+}
+
+.spotify-player-playlist-info {
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.spotify-player-playlist-info h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+}
+
+.spotify-player-playlist-info p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 0.875rem;
+  text-overflow: ellipsis;
+}
+
+.spotify-player-play-button {
+  color: var(--blue);
+  background-color: var(--dark);
+  border: 1px solid var(--darker);
+  border-radius: 0.5em;
+  cursor: pointer;
+  padding: 0.5em 0.75em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out transform 0.2s ease-in-out;
+}
+
+.spotify-player-play-button:hover {
+  background-color: var(--button-hover-background);
+  color: var(--magenta);
+  transform: scale(1.05);
+}

@@ -1,6 +1,4 @@
 // Collection of go-librespot API calls
-// NOTE: call getStatus to initialize the library. Otherwise apiBaseUrl remains unset.
-let apiBaseUrl = "";
 
 /**
  * Generic API call function with error handling.
@@ -24,17 +22,14 @@ const callApi = async (url, options = {}, defaultReturnValue = {}) => {
 };
 
 // Not sure what this is for, maybe for health checking?
-export const checkAPI = async () => {
-  const response = await callApi(`${apiBaseUrl}/`, {}, {});
+export const checkAPI = async (baseUrl) => {
+  const response = await callApi(`${baseUrl}/`, {}, {});
   return response.json();
 }
 
 // Gets the entire status JSON blob. Also initializes apiBaseUrl
 export const getStatus = async (baseUrl) => {
-  if (apiBaseUrl !== baseUrl) {
-    apiBaseUrl = baseUrl;
-  }
-  const response = await callApi(`${apiBaseUrl}/status`, {}, {});
+  const response = await callApi(`${baseUrl}/status`, {}, {});
   return response.json();
 }
 
@@ -42,38 +37,38 @@ export const getStatus = async (baseUrl) => {
  * Player Controls
  */
 
-export const play = async (payload) =>
-  await callApi(`${apiBaseUrl}/player/play`, {
+export const play = async (baseUrl, payload) =>
+  await callApi(`${baseUrl}/player/play`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
-export const resume = async () =>
-  await callApi(`${apiBaseUrl}/player/resume`, { method: "POST" });
+export const resume = async (baseUrl) =>
+  await callApi(`${baseUrl}/player/resume`, { method: "POST" });
 
-export const pause = async () =>
-  await callApi(`${apiBaseUrl}/player/pause`, { method: "POST" });
+export const pause = async (baseUrl) =>
+  await callApi(`${baseUrl}/player/pause`, { method: "POST" });
 
-export const togglePlayPause = async () =>
-  await callApi(`${apiBaseUrl}/player/playpause`, { method: "POST" });
+export const togglePlayPause = async (baseUrl) =>
+  await callApi(`${baseUrl}/player/playpause`, { method: "POST" });
 
-export const nextTrack = async (uri) =>
-  await callApi(`${apiBaseUrl}/player/next`, {
+export const nextTrack = async (baseUrl, uri) =>
+  await callApi(`${baseUrl}/player/next`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ uri }),
   });
 
-export const previousTrack = async () =>
-  await callApi(`${apiBaseUrl}/player/prev`, { method: "POST" });
+export const previousTrack = async (baseUrl) =>
+  await callApi(`${baseUrl}/player/prev`, { method: "POST" });
 
 /**
  * Seek Controls
  */
 
-export const seek = async (position, relative = false) =>
-  await callApi(`${apiBaseUrl}/player/seek`, {
+export const seek = async (baseUrl, position, relative = false) =>
+  await callApi(`${baseUrl}/player/seek`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ position, relative }),
@@ -83,13 +78,13 @@ export const seek = async (position, relative = false) =>
  * Volume Controls
  */
 
-export const getVolume = async () => {
-  const response = await callApi(`${apiBaseUrl}/player/volume`, {}, {});
+export const getVolume = async (baseUrl) => {
+  const response = await callApi(`${baseUrl}/player/volume`, {}, {});
   return response.json();
 }
 
-export const setVolume = async (volume, relative = false) =>
-  await callApi(`${apiBaseUrl}/player/volume`, {
+export const setVolume = async (baseUrl, volume, relative = false) =>
+  await callApi(`${baseUrl}/player/volume`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ volume, relative }),
@@ -99,22 +94,22 @@ export const setVolume = async (volume, relative = false) =>
  * Repeat and Shuffle
  */
 
-export const toggleRepeatContext = async (repeat_context) =>
-  await callApi(`${apiBaseUrl}/player/repeat_context`, {
+export const toggleRepeatContext = async (baseUrl, repeat_context) =>
+  await callApi(`${baseUrl}/player/repeat_context`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repeat_context }),
   });
 
-export const toggleRepeatTrack = async (repeat_track) =>
-  await callApi(`${apiBaseUrl}/player/repeat_track`, {
+export const toggleRepeatTrack = async (baseUrl, repeat_track) =>
+  await callApi(`${baseUrl}/player/repeat_track`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ repeat_track }),
   });
 
-export const toggleShuffleContext = async (shuffle_context) =>
-  await callApi(`${apiBaseUrl}/player/shuffle_context`, {
+export const toggleShuffleContext = async (baseUrl, shuffle_context) =>
+  await callApi(`${baseUrl}/player/shuffle_context`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ shuffle_context }),
@@ -124,12 +119,24 @@ export const toggleShuffleContext = async (shuffle_context) =>
  * Queue Management
  */
 
-export const addToQueue = async (uri) =>
-  await callApi(`${apiBaseUrl}/player/add_to_queue`, {
+export const addToQueue = async (baseUrl, uri) =>
+  await callApi(`${baseUrl}/player/add_to_queue`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ uri }),
   });
+
+/**
+ * Passthrough API to Spotify
+ */
+
+export const getPlaylists = async (baseUrl) => {
+  const response = await callApi(`${baseUrl}/web-api/v1/me/playlists?limit=50&offset=0`, {
+    method: "GET",
+  });
+  return response.json();
+}
+
 
 const exports = {
   checkAPI,
@@ -147,5 +154,6 @@ const exports = {
   toggleRepeatTrack,
   toggleShuffleContext,
   addToQueue,
+  getPlaylists,
 };
 export default exports;

@@ -1,32 +1,69 @@
 /* Title + Icon container */
+.spotify-player-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.8em;
+  width: 100%;
+}
+
+/* Tabs */
+.spotify-player-tabs {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+}
+
+.spotify-player-tab {
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: 1px solid var(--button-border);
+  border-radius: 0.3em;
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.spotify-player-tab:hover {
+  background-color: var(--accent-color);
+  color: var(--darkest);
+}
+
+.spotify-player-tab:disabled {
+  background-color: var(--button-border);
+  color: var(--description-color);
+  cursor: not-allowed;
+}
+
+.spotify-player-tab-active {
+  background-color: var(--button-hover-background);
+  color: var(--accent-color);
+  font-weight: bold;
+}
 
 .spotify-player-device-title {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   gap: 1em;
   text-align: center;
   background-color: var(--dark);
   width: 100%;
-  transition: width 0.3s ease, height 0.3s ease, filter 0.3s ease, z-index 0s;
   justify-content: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  align-items: center;
   padding: 0.4em;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
   border-radius: 0.2em;
-  margin: 0;
-  margin-bottom: 0.5em;
 }
 
 /* Title device name styling */
 
 .spotify-player-device-title h4 {
   font-weight: bold;
-  text-align: center;
   font-size: 1.5rem;
   color: var(--weird);
-  text-align: center;
   margin: 0;
   transition: transform 0.2s, color 0.3s ease;
 }

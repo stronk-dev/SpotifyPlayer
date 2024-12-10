@@ -1,11 +1,12 @@
 // Main component - handles generic layout and prop-passing
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useComponentSize from "../hooks/useComponentSize";
 import useLibrespot from "../hooks/useLibrespot";
 import AlbumCard from "./Album/AlbumCard";
 import Header from "./Info/Header";
 import TextInfo from "./Info/TextInfo";
+import Playlists from "./Info/Playlists";
 import SeekControls from "./Controls/SeekControls";
 import MediaButtons from "./Controls/MediaButtons";
 import VolumeControls from "./Controls/VolumeControls";
@@ -29,6 +30,7 @@ const MediaPlayer = ({
     isStopped,
     shuffleContext,
     handlePlayPause,
+    handlePlay,
     handlePrevTrack,
     handleNextTrack,
     handleSeek,
@@ -36,8 +38,36 @@ const MediaPlayer = ({
     toggleShuffle,
     isConnected,
     error,
+    playlists,
   } = useLibrespot(websocketUrl, apiBaseUrl);
   const { width } = useComponentSize(playerRef); //< Retrieve dimensions of media player
+  const [activeTab, setActiveTab] = useState("Info"); //< Text info view or Playlist selection
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const [arrowOffset, setArrowOffset] = useState(0); 
+
+  useEffect(() => {
+    if (!isConnected) {
+      setSelectedPlaylist(null);
+      setActiveTab("Info");
+    } else if (isStopped) {
+      setActiveTab("Playlists");
+    }
+  }, [isConnected, isStopped]);
+
+  const handleSelectPlaylist = (playlist) => {
+    setSelectedPlaylist(playlist);
+  };
+
+  const handlePlayPlaylist = (uri) => {
+    handlePlay(uri);
+  };
+
+  const handleTabSwitch = (newVal) => {
+    if (newVal == "Info"){
+      setSelectedPlaylist(null);
+    }
+    setActiveTab(newVal);
+  }
 
   // Watch for dimension updates and inject appropriate CSS layout
   useEffect(() => {
@@ -69,26 +99,35 @@ const MediaPlayer = ({
     return null;
   }
 
+  const albumTitle = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.name : null) || null
+  const albumSubtitle = (selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.owner.display_name : `Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`
+  const albumImage = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.images[0]?.url : trackInfo?.album_cover_url) || null
+
   return (
     <div ref={playerRef} className="spotify-player-spotify-card">
       {width < 500 ? (
         <>
-          <div className="spotify-player-header">
-            <Header
-              isConnected={isConnected}
-              deviceName={status?.device_name}
-              deviceType={status?.device_type}
-              isPlaying={isPlaying}
-              isStopped={isStopped}
-            />
-          </div>
+          <Header
+            isConnected={isConnected}
+            deviceName={status?.device_name}
+            deviceType={status?.device_type}
+            isPlaying={isPlaying}
+            isStopped={isStopped}
+            activeTab={activeTab}
+            setActiveTab={handleTabSwitch}
+          />
           <div className="spotify-player-info-container">
-            <TextInfo
+            {activeTab === "Info" && <TextInfo
               track={trackInfo}
               isStopped={isStopped}
               isConnected={isConnected}
               error={error}
-            />
+            />}
+            {activeTab === "Playlists" && <Playlists
+              playlists={playlists}
+              onSelect={handleSelectPlaylist}
+              onPlay={handlePlayPlaylist}
+            />}
             <SeekControls
               duration={trackInfo?.duration || 100}
               remotePosition={remotePosition || 100}
@@ -117,10 +156,10 @@ const MediaPlayer = ({
           </div>
           <div className="spotify-player-bottom">
             <AlbumCard
-              title={trackInfo?.album_name || "N/A"}
-              subtitle={`Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`}
-              image={trackInfo?.album_cover_url}
-              isStopped={isStopped || !trackInfo?.album_cover_url || !trackInfo?.album_cover_url?.length}
+              title={albumTitle}
+              subtitle={albumSubtitle}
+              image={albumImage}
+              isStopped={isStopped || !albumImage || !albumImage?.length}
               isConnected={isConnected}
             />
           </div>
@@ -129,10 +168,10 @@ const MediaPlayer = ({
         <div className="spotify-player-info-container">
           <div className="spotify-player-left">
             <AlbumCard
-              title={trackInfo?.album_name || "N/A"}
-              subtitle={`Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`}
-              image={trackInfo?.album_cover_url}
-              isStopped={isStopped || !trackInfo?.album_cover_url || !trackInfo?.album_cover_url?.length}
+              title={albumTitle}
+              subtitle={albumSubtitle}
+              image={albumImage}
+              isStopped={isStopped || !albumImage || !albumImage?.length}
               isConnected={isConnected}
             />
           </div>
@@ -143,13 +182,20 @@ const MediaPlayer = ({
               deviceType={status?.device_type}
               isPlaying={isPlaying}
               isStopped={isStopped}
+              activeTab={activeTab}
+              setActiveTab={handleTabSwitch}
             />
-            <TextInfo
+            {activeTab === "Info" && <TextInfo
               track={trackInfo}
               isStopped={isStopped}
               isConnected={isConnected}
               error={error}
-            />
+            />}
+            {activeTab === "Playlists" && <Playlists
+              playlists={playlists}
+              onSelect={handleSelectPlaylist}
+              onPlay={handlePlayPlaylist}
+            />}
           </div>
           <div className="spotify-player-right">
             <MediaButtons
@@ -181,40 +227,45 @@ const MediaPlayer = ({
         </div>
       ) : (
         <>
-          <div className="spotify-player-header">
-            <Header
-              isConnected={isConnected}
-              deviceName={status?.device_name}
-              deviceType={status?.device_type}
-              isPlaying={isPlaying}
-              isStopped={isStopped}
-            />
-          </div>
+          <Header
+            isConnected={isConnected}
+            deviceName={status?.device_name}
+            deviceType={status?.device_type}
+            isPlaying={isPlaying}
+            isStopped={isStopped}
+            activeTab={activeTab}
+            setActiveTab={handleTabSwitch}
+          />
           <div className="spotify-player-info-container">
             <div className="spotify-player-left">
               <AlbumCard
-                title={trackInfo?.album_name || "N/A"}
-                subtitle={`Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`}
-                image={trackInfo?.album_cover_url}
-                isStopped={isStopped || !trackInfo?.album_cover_url || !trackInfo?.album_cover_url?.length}
+                title={albumTitle}
+                subtitle={albumSubtitle}
+                image={albumImage}
+                isStopped={isStopped || !albumImage || !albumImage?.length}
                 isConnected={isConnected}
               />
             </div>
             <div className="spotify-player-right">
-              <TextInfo
+              {activeTab === "Info" && <TextInfo
                 track={trackInfo}
                 isStopped={isStopped}
                 isConnected={isConnected}
                 error={error}
-              />
-              <SeekControls
+              />}
+              {activeTab === "Playlists" && <Playlists
+                playlists={playlists}
+                onSelect={handleSelectPlaylist}
+                onPlay={handlePlayPlaylist}
+              />}
+              {activeTab === "Info" && <SeekControls
                 duration={trackInfo?.duration || 100}
                 remotePosition={remotePosition || 100}
                 handleSeek={handleSeek}
                 isStopped={isStopped}
                 isConnected={isConnected}
                 isPlaying={isPlaying}
-              />
+              />}
             </div>
           </div>
           <div className="spotify-player-footer">

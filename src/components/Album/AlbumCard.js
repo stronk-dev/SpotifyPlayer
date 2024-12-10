@@ -97,7 +97,7 @@ const AlbumCard = ({ title, subtitle, image, isStopped }) => {
     >
       <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
       {
-        isStopped ? (<div className="spotify-player-album-card-image"><PlaceholderAlbum /></div>) : (
+        isStopped && !image ? (<div className="spotify-player-album-card-image"><PlaceholderAlbum /></div>) : (
           <div className="spotify-player-album-card-container">
             <div className="spotify-player-album-card-container-border"></div>
             <div className="spotify-player-album-card-image-container">
@@ -107,9 +107,9 @@ const AlbumCard = ({ title, subtitle, image, isStopped }) => {
                 src={image}
               />
             </div>
-            {/* <div className="spotify-player-album-card-title-container">
+            {title && <div className="spotify-player-album-card-title-container">
               <div className="spotify-player-album-card-title">{title}</div>
-            </div> */}
+            </div>}
             <div className="spotify-player-album-card-subtitle">{subtitle}</div>
           </div>
         )

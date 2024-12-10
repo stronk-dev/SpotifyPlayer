@@ -10,9 +10,17 @@ import {
   GiRadioTower,
   GiNightSleep,
 } from "react-icons/gi";
-import { FaTabletAlt, FaCar, FaMusic, FaQuestionCircle, FaChromecast, FaExclamationCircle } from "react-icons/fa";
+import {
+  FaTabletAlt,
+  FaCar,
+  FaMusic,
+  FaQuestionCircle,
+  FaChromecast,
+  FaExclamationCircle,
+  FaInfoCircle,
+} from "react-icons/fa";
 import { MdWatch } from "react-icons/md";
-import './Header.css';
+import "./Header.css";
 
 // Mapping from device type to which Icon we should render
 const deviceIcons = {
@@ -38,16 +46,52 @@ const deviceIcons = {
 // TODO: expand with settings button
 // TODO: expand with playlists/albums/explore button once we can get albums/playlists from the API
 // TODO: add more comments, IE for props
-const Header = ({ isConnected, deviceName, isPlaying, deviceType, isStopped }) => {
-  const Icon = isStopped ? GiNightSleep : deviceIcons[deviceType?.toLowerCase()] || FaQuestionCircle;
+const Header = ({
+  isConnected,
+  deviceName,
+  isPlaying,
+  deviceType,
+  isStopped,
+  activeTab,
+  setActiveTab,
+}) => {
+  const Icon = isStopped
+    ? GiNightSleep
+    : deviceIcons[deviceType?.toLowerCase()] || FaQuestionCircle;
+
   return (
-    <div className="spotify-player-device-title">
-      {isConnected ? (
-        <Icon className={isPlaying ? "spotify-player-connected-icon spotify-player-rotating" : "spotify-player-connected-icon"} />
-      ) : (
-        <FaExclamationCircle className="spotify-player-connected-icon spotify-player-disconnected" />
-      )}
-      <h4>{isConnected ? deviceName : "Disconnected"}</h4>
+    <div className="spotify-player-header">
+      <div className="spotify-player-device-title">
+        {isConnected ? (
+          <Icon
+            className={
+              isPlaying
+                ? "spotify-player-connected-icon spotify-player-rotating"
+                : "spotify-player-connected-icon"
+            }
+          />
+        ) : (
+          <FaExclamationCircle className="spotify-player-connected-icon spotify-player-disconnected" />
+        )}
+        <h4>{isConnected ? deviceName : "Disconnected"}</h4>
+      </div>
+      <div className="spotify-player-tabs">
+        <button
+          className={`spotify-player-tab ${activeTab === "Info" ? "spotify-player-tab-active" : ""
+            }`}
+          onClick={() => setActiveTab("Info")}
+        >
+          <FaInfoCircle />
+        </button>
+        <button
+          className={`spotify-player-tab ${activeTab === "Playlists" ? "spotify-player-tab-active" : ""
+            }`}
+          onClick={() => setActiveTab("Playlists")}
+          disabled={!isConnected}
+        >
+          <FaMusic />
+        </button>
+      </div>
     </div>
   );
 };
