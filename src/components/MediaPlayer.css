@@ -30,7 +30,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 /* Wrapper main contents */
@@ -78,7 +78,7 @@
 }
 
 .spotify-player-default-layout .spotify-player-playlist-container {
-  grid-template-rows: repeat(4, minmax(50px, auto));
+  grid-template-rows: repeat(3, minmax(50px, auto));
   grid-auto-flow: column;
 }
 
@@ -125,7 +125,7 @@
   flex: 2;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 0.4em;
   height: 100%;
   overflow-x: auto;
   box-sizing: border-box;

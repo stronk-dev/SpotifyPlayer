@@ -19,4 +19,5 @@ body {
 
 body #root {
   height: unset;
+  padding: 2em;
 }

@@ -79,6 +79,7 @@ The player arranges itself based on the screen dimensions, with three possible l
 
 ### Widescreen
 ![WideLib](screenshots/widescreen.png)
+![WideLib](screenshots/widescreen_lib.png)
 ![WideLib](screenshots/widescreen_library.png)
 
 ### Portrait 

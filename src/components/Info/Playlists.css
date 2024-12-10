@@ -9,6 +9,7 @@
   border-radius: 0.5em;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
   position: relative;
+  display: flex;
 }
 
 .spotify-player-playlist-container {
