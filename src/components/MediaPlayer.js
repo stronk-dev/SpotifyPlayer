@@ -21,8 +21,8 @@ const thresholdNarrowscreen = 500;
 const MediaPlayer = ({
   websocketUrl = process.env.REACT_APP_WS_URL || "ws://localhost:3678/events",
   apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3678",
-  kioskMode = (process.env.REACT_APP_KIOSK_MODE?.toLowerCase() == "true") || false,
-  hideOnDisconnect = (process.env.REACT_APP_HIDE_ON_DISCONNECT?.toLowerCase() == "true") || false,
+  kioskMode = (process.env.REACT_APP_KIOSK_MODE && process.env.REACT_APP_KIOSK_MODE.toLowerCase() == "true") || false,
+  hideOnDisconnect = (process.env.REACT_APP_HIDE_ON_DISCONNECT && process.env.REACT_APP_HIDE_ON_DISCONNECT.toLowerCase() == "true") || false,
   layout = process.env.REACT_APP_LAYOUT || "auto",
 }) => {
   const {
