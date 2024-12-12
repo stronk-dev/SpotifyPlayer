@@ -53,11 +53,11 @@ export const pause = async (baseUrl) =>
 export const togglePlayPause = async (baseUrl) =>
   await callApi(`${baseUrl}/player/playpause`, { method: "POST" });
 
-export const nextTrack = async (baseUrl, uri) =>
+export const nextTrack = async (baseUrl) =>
   await callApi(`${baseUrl}/player/next`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uri }),
+    body: JSON.stringify({}),
   });
 
 export const previousTrack = async (baseUrl) =>

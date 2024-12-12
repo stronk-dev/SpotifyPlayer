@@ -8,6 +8,7 @@ import {
   seek,
   play,
   previousTrack,
+  nextTrack,
   setVolume,
   toggleShuffleContext,
   getPlaylists
@@ -117,11 +118,7 @@ const useLibrespot = (websocketUrl, apiBaseUrl) => {
       console.error("Unable to skip track, as the player is inactive.");
       return;
     }
-    if (!isPlaying) {
-      resume(apiBaseUrl);
-    }
-    seek(apiBaseUrl, trackInfo.duration - 5);
-    setRemotePosition(trackInfo.duration - 5);
+    nextTrack(apiBaseUrl);
   };
 
   // 

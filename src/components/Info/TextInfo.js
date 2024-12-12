@@ -13,18 +13,26 @@ const TextInfo = ({ track, isStopped, isConnected, error }) => {
     )
   }
 
-  // Tries to format the release date to YYYY-MM-DD
+  // Tries to format the release date to YYYY-MM-DD or partial formats if data is incomplete
   const formatReleaseDate = (releaseDate) => {
-    if (!releaseDate || !releaseDate.length){
+    if (!releaseDate || !releaseDate.length) {
       return "Unknown";
     }
+
     // Match the format with optional spaces: "year:YYYY month:MM day:DD"
-    const match = releaseDate.match(/year:\s*(\d+)\s*month:\s*(\d+)\s*day:\s*(\d+)/);
+    const match = releaseDate.match(/year:\s*(\d+)?\s*month:\s*(\d+)?\s*day:\s*(\d+)?/);
+
     if (match) {
-      const year = match[1];
-      const month = match[2].padStart(2, "0"); // Ensure two-digit month
-      const day = match[3].padStart(2, "0");   // Ensure two-digit day
-      return `${year}-${month}-${day}`;
+      const year = match[1] || "";
+      const month = match[2] ? match[2].padStart(2, "0") : "";
+      const day = match[3] ? match[3].padStart(2, "0") : "";
+
+      // Construct the result based on available parts
+      let result = year;
+      if (month) result += `-${month}`;
+      if (day) result += `-${day}`;
+
+      return result || "Unknown"; // Fallback to "Unknown" if no valid parts
     }
     return releaseDate; // Return as-is for invalid formats
   };
