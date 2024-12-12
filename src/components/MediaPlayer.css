@@ -67,6 +67,7 @@
 
 .spotify-player-default-layout .spotify-player-left {
   display: flex;
+  flex: 1;
 }
 
 .spotify-player-default-layout .spotify-player-right {
