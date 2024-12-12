@@ -13,14 +13,17 @@ import VolumeControls from "./Controls/VolumeControls";
 import "./MediaPlayer.css";
 
 const thresholdWidescreen = 800;
-const thresholdNarrowscreen = 450;
+const thresholdTallcreen = 500;
+const thresholdNarrowscreen = 500;
 
-// TODO: add props for forcing a layout
+// TODO: add props for the WebSocket retries, etc.
 // TODO: add more comments, IE for props
 const MediaPlayer = ({
   websocketUrl = process.env.REACT_APP_WS_URL || "ws://localhost:3678/events",
   apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3678",
-  hideOnDisconnect = false,
+  kioskMode = (process.env.REACT_APP_KIOSK_MODE.toLowerCase() == "true") || false,
+  hideOnDisconnect = (process.env.REACT_APP_HIDE_ON_DISCONNECT.toLowerCase() == "true") || false,
+  layout = process.env.REACT_APP_LAYOUT || "auto",
 }) => {
   const {
     playerRef,
@@ -46,7 +49,6 @@ const MediaPlayer = ({
   const { width, height } = useComponentSize(playerRef); //< Retrieve dimensions of media player
   const [activeTab, setActiveTab] = useState("Info"); //< Text info view or Playlist selection
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-  const [arrowOffset, setArrowOffset] = useState(0); 
 
   useEffect(() => {
     if (!isConnected) {
@@ -66,49 +68,56 @@ const MediaPlayer = ({
   };
 
   const handleTabSwitch = (newVal) => {
-    if (newVal == "Info"){
+    if (newVal == "Info") {
       setSelectedPlaylist(null);
     }
     setActiveTab(newVal);
   }
-
-  // Watch for dimension updates and inject appropriate CSS layout
-  useEffect(() => {
-    const updateLayout = () => {
-      if (playerRef.current) {
-        const layoutClass =
-          width > thresholdWidescreen
-            ? "spotify-player-widescreen-layout"
-            : width < thresholdNarrowscreen
-              ? "spotify-player-portrait-layout"
-              : "spotify-player-default-layout";
-
-        // Remove previous layout classes
-        playerRef.current.classList.remove(
-          "spotify-player-widescreen-layout",
-          "spotify-player-portrait-layout",
-          "spotify-player-default-layout"
-        );
-
-        // Add the current layout class
-        playerRef.current.classList.add(layoutClass);
-      }
-    };
-    updateLayout();
-  }, [width, playerRef]);
 
   // Hide the entire player if we are not connected to the API and the hideOnDisconnect prop is set.
   if (hideOnDisconnect && !isConnected) {
     return null;
   }
 
-  const albumTitle = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.name : null) || null
-  const albumSubtitle = (selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.owner.display_name : `Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`
-  const albumImage = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.images[0]?.url : trackInfo?.album_cover_url) || null
+  const albumTitle = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.name : null) || null;
+  const albumSubtitle = (selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.owner.display_name : `Disc ${trackInfo?.disc_number || "N/A"}, Track ${trackInfo?.track_number || "N/A"}`;
+  const albumImage = ((selectedPlaylist && activeTab == "Playlists") ? selectedPlaylist.images[0]?.url : trackInfo?.album_cover_url) || null;
+  let playerClass = "spotify-player-spotify-card";
+  if (layout == "auto") {
+    if (!playerRef.current) {
+      layout = "default";
+    } else if (kioskMode) {
+      if (width > thresholdNarrowscreen && height > thresholdTallcreen) {
+        layout = "default";
+      } else if (width > height) {
+        layout = "widescreen";
+      } else {
+        layout = "portrait";
+      }
+    } else {
+      if (width > thresholdWidescreen) {
+        layout = "widescreen";
+      } else if (width < thresholdNarrowscreen) {
+        layout = "portrait";
+      } else {
+        layout = "default";
+      }
+    }
+  }
+  if (layout == "default") {
+    playerClass += " spotify-player-default-layout";
+  } else if (layout == "widescreen") {
+    playerClass += " spotify-player-widescreen-layout";
+  } else if (layout == "portrait") {
+    playerClass += " spotify-player-portrait-layout";
+  }
+  if (kioskMode) {
+    playerClass += " kiosk";
+  }
 
   return (
-    <div ref={playerRef} className="spotify-player-spotify-card">
-      {width < thresholdNarrowscreen ? (
+    <div ref={playerRef} className={playerClass}>
+      {layout == "portrait" ? (
         <>
           <Header
             isConnected={isConnected}
@@ -167,7 +176,7 @@ const MediaPlayer = ({
             />
           </div>
         </>
-      ) : width > thresholdWidescreen ? (
+      ) : layout == "widescreen" ? (
         <div className="spotify-player-info-container">
           <div className="spotify-player-left">
             <AlbumCard

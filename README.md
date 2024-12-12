@@ -60,16 +60,22 @@ TODO: OS instructions (auto-login, open browser, etc)
 
 First install the dependency:
 ```
-npm install --save `@stronk-tech/spotify-player`
+npm install --save `@stronk-tech/react-librespot-controller`
 ```
 
 Then import the component and fill in your API endpoints:
 ```
-import MediaPlayer from "@stronk-tech/spotify-player";
-<MediaPlayer websocketUrl={"ws://apollo:3678/events"} apiBaseUrl={"http://apollo:3678"} hideOnDisconnect={true} />
+import MediaPlayer from "@stronk-tech/react-librespot-controller";
+<MediaPlayer websocketUrl={"ws://apollo:3678/events"} apiBaseUrl={"http://apollo:3678"} hideOnDisconnect={false} />
 ```
 
-If you set `hideOnDisconnect` to true, the entire component will hide itself when there is no connection to the API endpoint. Otherwise it will display an error state (an retry the connection of course).
+### Props
+
+- `hideOnDisconnect`: When `true`, the entire component will hide itself when there is no connection to the API endpoint. Otherwise it will display an error state.
+- `websocketUrl`: Full URL to the WebSocket endpoint of the `go-librespot` client.
+- `apiBaseUrl`: Full URL to the HTTP API endpoint of the `go-librespot` client.
+- `kioskMode`: When `true`, the component will fill the entire screen. Otherwise it will fill the available width and base the layout on the width only. It is recommended to leave this option `false` when importing the module into an existing webpage and to `true` when you are running the player standalone on a touch screen.
+- `layout`: Can be `auto`, `default`, `widescreen`, `portrait`. See the screenshots for how the layouts look like.
 
 # Screen shots
 The player arranges itself based on the screen dimensions, with three possible layouts:
