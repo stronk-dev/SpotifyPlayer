@@ -57,7 +57,7 @@
 
 .spotify-player-default-layout .spotify-player-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 1em;
 }
 
@@ -66,8 +66,10 @@
 }
 
 .spotify-player-default-layout .spotify-player-left {
-  display: flex;
   flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
 }
 
 .spotify-player-default-layout .spotify-player-right {
